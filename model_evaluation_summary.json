@@ -1,0 +1,174 @@
+{
+  "dataset_info": {
+    "total_rows": 86400,
+    "train_rows": 60479,
+    "test_rows": 25921,
+    "split_timestamp": "2026-08-11 23:59:00",
+    "missing_values_count": 0
+  },
+  "pdm_metrics": {
+    "Logistic Regression": {
+      "Accuracy": 0.9955,
+      "Precision": 0.9891,
+      "Recall": 0.9548,
+      "F1_Score": 0.9717,
+      "ROC_AUC": 0.9953,
+      "Confusion_Matrix": [
+        [
+          23799,
+          22
+        ],
+        [
+          95,
+          2005
+        ]
+      ]
+    },
+    "Decision Tree": {
+      "Accuracy": 0.9966,
+      "Precision": 0.9912,
+      "Recall": 0.9671,
+      "F1_Score": 0.979,
+      "ROC_AUC": 0.9834,
+      "Confusion_Matrix": [
+        [
+          23803,
+          18
+        ],
+        [
+          69,
+          2031
+        ]
+      ]
+    },
+    "Random Forest": {
+      "Accuracy": 0.9974,
+      "Precision": 1.0,
+      "Recall": 0.9681,
+      "F1_Score": 0.9838,
+      "ROC_AUC": 0.9986,
+      "Confusion_Matrix": [
+        [
+          23821,
+          0
+        ],
+        [
+          67,
+          2033
+        ]
+      ]
+    },
+    "XGBoost (HistGBM)": {
+      "Accuracy": 0.9978,
+      "Precision": 0.9966,
+      "Recall": 0.9767,
+      "F1_Score": 0.9865,
+      "ROC_AUC": 0.9973,
+      "Confusion_Matrix": [
+        [
+          23814,
+          7
+        ],
+        [
+          49,
+          2051
+        ]
+      ]
+    }
+  },
+  "pdm_feature_importances": {
+    "gas_rate_roll_mean_15m": 0.1579,
+    "water_rate_bpd": 0.1304,
+    "water_level_ft": 0.0993,
+    "gas_rate_mscfd": 0.0808,
+    "diff_pressure_thp_chp_psi": 0.079,
+    "current_roll_mean_15m": 0.0665,
+    "chp_baseline_dev": 0.064,
+    "thp_roll_mean_15m": 0.0623,
+    "tubing_head_pressure_psi": 0.0475,
+    "thp_baseline_dev": 0.0424,
+    "casing_head_pressure_psi": 0.0341,
+    "downhole_temp_f": 0.0334,
+    "pump_rpm": 0.0286,
+    "pump_torque_current_amps": 0.0239,
+    "diff_pressure_bhp_thp_psi": 0.0144,
+    "thp_roll_std_15m": 0.0131,
+    "bhp_baseline_dev": 0.0064,
+    "choke_opening_pct": 0.0061,
+    "downhole_gauge_pressure_psi": 0.0041,
+    "current_roc_15m": 0.0021,
+    "thp_roc_15m": 0.0015,
+    "chp_roc_15m": 0.0013,
+    "bhp_roc_15m": 0.0009
+  },
+  "cyber_metrics": {
+    "Isolation Forest (Hybrid Physics-Informed)": {
+      "Accuracy": 0.9973,
+      "Precision": 1.0,
+      "Recall": 0.9465,
+      "F1_Score": 0.9725,
+      "ROC_AUC": 0.9926,
+      "Confusion_Matrix": [
+        [
+          24631,
+          0
+        ],
+        [
+          69,
+          1221
+        ]
+      ]
+    },
+    "One-Class SVM (Baseline)": {
+      "Accuracy": 0.9206,
+      "Precision": 0.3846,
+      "Recall": 0.9938,
+      "F1_Score": 0.5546,
+      "ROC_AUC": 0.9955,
+      "Confusion_Matrix": [
+        [
+          22580,
+          2051
+        ],
+        [
+          8,
+          1282
+        ]
+      ]
+    }
+  },
+  "anomaly_type_recall": {
+    "Sensor_Spike": {
+      "Test_Minutes": 150,
+      "Detection_Rate_Pct": 100.0,
+      "Mean_Anomaly_Score": 92.0
+    },
+    "Sensor_Drift": {
+      "Test_Minutes": 300,
+      "Detection_Rate_Pct": 81.33,
+      "Mean_Anomaly_Score": 69.7
+    },
+    "Sensor_Freezing": {
+      "Test_Minutes": 210,
+      "Detection_Rate_Pct": 93.81,
+      "Mean_Anomaly_Score": 84.5
+    },
+    "False_Data_Injection": {
+      "Test_Minutes": 210,
+      "Detection_Rate_Pct": 100.0,
+      "Mean_Anomaly_Score": 94.0
+    },
+    "Physical_Inconsistency": {
+      "Test_Minutes": 420,
+      "Detection_Rate_Pct": 100.0,
+      "Mean_Anomaly_Score": 94.0
+    }
+  },
+  "alert_distribution": {
+    "Normal": 77429,
+    "High failure risk": 5901,
+    "Measurement anomaly": 2758,
+    "Critical operational warning": 240,
+    "Maintenance warning": 72
+  }
+}

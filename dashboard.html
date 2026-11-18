@@ -1,0 +1,2364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber-Secure Predictive Maintenance — Oil & Gas Well Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg-main: #090d16;
+      --bg-surface: #111827;
+      --bg-elevated: #1e293b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --green: #10b981;
+      --green-soft: rgba(16, 185, 129, 0.14);
+      --amber: #f59e0b;
+      --amber-soft: rgba(245, 158, 11, 0.16);
+      --red: #ef4444;
+      --red-soft: rgba(239, 68, 68, 0.16);
+      --purple: #a855f7;
+      --purple-soft: rgba(168, 85, 247, 0.16);
+      --blue: #38bdf8;
+      --blue-soft: rgba(56, 189, 248, 0.14);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation Bar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 32px;
+      background: rgba(17, 24, 39, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
+    }
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .brand p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: #0b0f19;
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      gap: 4px;
+    }
+    .nav-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-tab:hover { color: var(--text-primary); }
+    .nav-tab.active {
+      background: var(--bg-elevated);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 22px 28px 48px;
+    }
+
+    .page-view { display: none; }
+    .page-view.active { display: block; animation: fadeIn 0.22s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* 4 Scenario Cards Bar */
+    .scenario-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .scen-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 15px 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .scen-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .scen-card.active {
+      background: rgba(30, 41, 59, 0.75);
+      border-color: var(--blue);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .scen-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    .scen-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .scen-card p {
+      font-size: 0.79rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Verdict Banner */
+    .verdict-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      border: 1.5px solid;
+      gap: 16px;
+      flex-wrap: wrap;
+      transition: all 0.25s ease;
+    }
+    .verdict-normal { background: var(--green-soft); border-color: rgba(16, 185, 129, 0.45); }
+    .verdict-maint  { background: var(--amber-soft); border-color: rgba(245, 158, 11, 0.5); }
+    .verdict-high   { background: var(--red-soft); border-color: rgba(239, 68, 68, 0.5); }
+    .verdict-cyber  { background: var(--purple-soft); border-color: rgba(168, 85, 247, 0.5); }
+    .verdict-crit   { background: linear-gradient(90deg, rgba(239,68,68,0.22), rgba(168,85,247,0.22)); border-color: #f43f5e; }
+
+    .verdict-title { font-size: 1.12rem; font-weight: 800; margin-bottom: 3px; }
+    .verdict-desc { font-size: 0.86rem; color: #e2e8f0; }
+    .verdict-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      background: rgba(9, 13, 22, 0.65);
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 390px 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .score-hero {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin: 6px 0 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .score-number {
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .score-status { font-size: 0.92rem; font-weight: 700; }
+
+    .reason-item { margin-bottom: 11px; }
+    .reason-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      margin-bottom: 4px;
+    }
+    .reason-bar-bg {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .reason-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.25s ease;
+    }
+
+    .action-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid var(--blue);
+      font-size: 0.83rem;
+      color: #e2e8f0;
+    }
+
+    /* Live Fault Strip under Well W-001 Diagram */
+    .live-fault-strip {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      font-size: 0.79rem;
+      line-height: 1.45;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Engaging Playback & Timeline Bar */
+    .chart-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .pill-group {
+      display: flex;
+      gap: 5px;
+      background: #0b0f19;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .pill-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .pill-btn.active { background: var(--bg-elevated); color: #fff; }
+
+    .playback-controls-box {
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+    .playback-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-play {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #041019;
+      border: none;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.84rem;
+      padding: 9px 18px;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.28);
+      transition: all 0.15s;
+    }
+    .btn-play.playing {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
+    }
+    .speed-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .speed-btn.active {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+    .jump-fault-btn {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #fbbf24;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 7px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .jump-fault-btn:hover { background: rgba(245, 158, 11, 0.25); }
+
+    /* Color-Coded Timeline Risk Strip Under Slider */
+    .timeline-Zones-bar {
+      display: flex;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+      background: #1e293b;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    /* ===================================================================== */
+    /* TAB 2: INTERACTIVE SIMULATOR 3-COLUMN LAYOUT & CLICKABLE WELL DIAGRAM */
+    /* ===================================================================== */
+    .sim-layout {
+      display: grid;
+      grid-template-columns: 420px 390px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .slider-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+    }
+    .slider-box.faulty-high, .slider-box.faulty-low {
+      border-color: rgba(239, 68, 68, 0.55);
+      background: rgba(239, 68, 68, 0.06);
+    }
+    .slider-box.faulty-warn {
+      border-color: rgba(245, 158, 11, 0.55);
+      background: rgba(245, 158, 11, 0.06);
+    }
+    .slider-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.81rem;
+      margin-bottom: 5px;
+    }
+    .slider-state-pill {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .well-part {
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+    .well-part:hover { filter: brightness(1.22); }
+    .well-part.selected-part {
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.75));
+    }
+
+    .part-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .part-pill-btn {
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 7px 8px;
+      border-radius: 8px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .part-pill-btn:hover { border-color: var(--blue); color: #fff; }
+    .part-pill-btn.active {
+      background: var(--bg-elevated);
+      border-color: var(--blue);
+      color: #fff;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .fix-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #04130d;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 800;
+      padding: 11px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+      transition: all 0.18s ease;
+    }
+    .fix-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .fix-all-btn {
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: #fff;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 9px 15px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .fix-all-btn:hover { filter: brightness(1.1); }
+
+    .impact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+    .impact-chip:hover { border-color: var(--blue); color: var(--blue); }
+
+    .clean-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .clean-table th {
+      text-align: left;
+      color: var(--text-secondary);
+      font-weight: 600;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .clean-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .Preset-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 9px 11px;
+      border-radius: 9px;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .Preset-btn:hover {
+      border-color: var(--blue);
+      background: rgba(56, 189, 248, 0.14);
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-size: 0.81rem;
+    }
+    .check-row input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--purple);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 1220px) {
+      .sim-layout, .main-grid { grid-template-columns: 1fr; }
+      .scenario-cards { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================= TOP NAVIGATION BAR ======================= -->
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-icon">🛢️</div>
+      <div>
+        <h1>Cyber-Secure Predictive Maintenance</h1>
+        <p>Oil & Gas Well Monitoring • Dual-Layer AI Decision Support</p>
+      </div>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="nav-tab active" id="topTab1" onclick="showTab('tab-monitor', this)">1. Live Well Monitor</button>
+      <button class="nav-tab" id="topTab2" onclick="showTab('tab-simulator', this)">2. Interactive Simulator</button>
+      <button class="nav-tab" id="topTab3" onclick="showTab('tab-cases', this)">3. Real-World Case Studies</button>
+      <button class="nav-tab" id="topTab4" onclick="showTab('tab-models', this)">4. ML Model Results</button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: LIVE WELL MONITOR (MAIN DASHBOARD)                           -->
+    <!-- =================================================================== -->
+    <section class="page-view active" id="tab-monitor">
+
+      <div class="section-label">
+        <span>Step 1: Click a Scenario Below to See How the System Responds</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:0.76rem;color:var(--text-secondary);">More Anomaly Demos:</span>
+          <select id="extraAnomalySelect" onchange="if(this.value) selectScenario(this.value)" style="background:var(--bg-surface);color:#fff;border:1px solid var(--border);padding:5px 10px;border-radius:8px;font-size:0.8rem;">
+            <option value="">-- Choose Specific Cyber Anomaly --</option>
+            <option value="spike">Sensor Spike (Sudden Pressure Jump)</option>
+            <option value="drift">Slow Sensor Drift (Creeping CHP Bias)</option>
+            <option value="fdi">False-Data Injection (Spoofed Downhole BHP)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 4 Simple, Clear Scenario Cards -->
+      <div class="scenario-cards">
+        <div class="scen-card" id="card_normal" onclick="selectScenario('normal')">
+          <span class="scen-tag" style="background:var(--green-soft);color:var(--green);">🟢 Normal</span>
+          <h3>Healthy Well Operation</h3>
+          <p>Pump and pressures are normal, and all sensor readings are trustworthy.</p>
+        </div>
+
+        <div class="scen-card active" id="card_scenario_a" onclick="selectScenario('scenario_a')">
+          <span class="scen-tag" style="background:var(--red-soft);color:var(--red);">🔴 Scenario A</span>
+          <h3>Equipment Failure Risk</h3>
+          <p>Pump is wearing out: pressure & gas flow drop while motor current rises.</p>
+        </div>
+
+        <div class="scen-card" id="card_scenario_b" onclick="selectScenario('scenario_b')">
+          <span class="scen-tag" style="background:var(--purple-soft);color:var(--purple);">🟣 Scenario B</span>
+          <h3>Frozen / Faulty Sensor</h3>
+          <p>Tubing pressure sensor freezes flatline while casing pressure keeps changing.</p>
+        </div>
+
+        <div class="scen-card" id="card_scenario_c" onclick="selectScenario('scenario_c')">
+          <span class="scen-tag" style="background:var(--amber-soft);color:var(--amber);">🚨 Scenario C</span>
+          <h3>Failure + Sensor Tampering</h3>
+          <p>Both alerts happen together. Operator must check sensors before acting!</p>
+        </div>
+      </div>
+
+      <!-- Combined System Verdict Banner -->
+      <div class="verdict-banner verdict-high" id="verdictBanner">
+        <div>
+          <div class="verdict-title" id="verdictTitle">🔴 HIGH EQUIPMENT FAILURE RISK DETECTED</div>
+          <div class="verdict-desc" id="verdictDesc">
+            The Predictive Maintenance model detected pump wear. Sensor readings are verified as trustworthy — schedule maintenance inspection.
+          </div>
+        </div>
+        <div class="verdict-meta" id="verdictClock">2026-08-18 18:00:00</div>
+      </div>
+
+      <!-- 3-Column Core View: Live Interactive Well Diagram + AI Layer 1 + AI Layer 2 -->
+      <div class="main-grid">
+
+        <!-- Column 1: Detailed Animated Well W-001 Live Readings Digital Twin -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🛢️ Well W-001 Live Readings</div>
+            <span class="badge" style="background:var(--green-soft);color:var(--green);" id="wellStateBadge">Normal</span>
+          </div>
+
+          <svg viewBox="0 0 340 430" width="100%" height="380" style="background:#070b14;border-radius:12px;border:1px solid var(--border);user-select:none;">
+            <defs>
+              <linearGradient id="monFluidGrad" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#06b6d4"/>
+                <stop offset="100%" stop-color="#10b981"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Subsurface Ground Layer -->
+            <rect x="0" y="92" width="340" height="338" fill="#0b1120"/>
+            <line x1="0" y1="92" x2="340" y2="92" stroke="#334155" stroke-width="2" stroke-dasharray="5,5"/>
+            <text x="10" y="84" fill="#64748b" font-size="8" font-weight="700">SURFACE GROUND LINE</text>
+
+            <!-- Casing Annulus & Dynamic Fluid Level -->
+            <rect id="monShapeCHP" x="108" y="92" width="94" height="305" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="2.5"/>
+            <rect id="monAnnulusFluid" x="111" y="210" width="88" height="184" fill="rgba(56, 189, 248, 0.14)"/>
+
+            <!-- Production Tubing String & Animated Rising Fluid Stream -->
+            <rect id="monShapeFlow" x="139" y="58" width="32" height="238" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+            <line id="monFlowStream" x1="155" y1="290" x2="155" y2="60" stroke="url(#monFluidGrad)" stroke-width="9" stroke-dasharray="10,10"/>
+
+            <!-- Wellhead Christmas Tree & Choke Valve -->
+            <rect id="monShapeTHP" x="125" y="16" width="60" height="44" rx="7" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
+            <circle id="monTreeLED" cx="155" cy="38" r="7" fill="#10b981"/>
+            <line x1="185" y1="38" x2="222" y2="38" stroke="#38bdf8" stroke-width="5"/>
+
+            <!-- Downhole ESP Pump & Spinning Rotor + Heat Glow -->
+            <circle id="monPumpHeatGlow" cx="155" cy="322" r="34" fill="rgba(239, 68, 68, 0)" />
+            <rect id="monShapeESP" x="130" y="290" width="50" height="64" rx="7" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+            <circle id="monPumpRotor" cx="155" cy="322" r="13" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="5,4"/>
+            <text x="155" y="326" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="8" font-weight="700">ESP</text>
+
+            <!-- Bottomhole Gauge (BHP) -->
+            <rect id="monShapeBHP" x="122" y="366" width="66" height="28" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+            <text x="155" y="384" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="8" font-weight="700">BHP SENSOR</text>
+
+            <!-- 1. THP Callout Box (Top Left) -->
+            <rect id="monCardTHP" x="8" y="12" width="108" height="54" rx="7" fill="#111827" stroke="#10b981" stroke-width="2"/>
+            <text x="15" y="26" fill="#94a3b8" font-size="8.5" font-weight="700">TUBING (THP)</text>
+            <text x="15" y="44" fill="#fff" font-family="JetBrains Mono" font-size="12" font-weight="700" id="lblTHP">280 PSI</text>
+            <text x="15" y="58" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="monStatTHP">● NORMAL</text>
+
+            <!-- 2. SCADA / Sensor Link Box (Top Right) -->
+            <rect id="monCardScada" x="210" y="12" width="122" height="54" rx="7" fill="#111827" stroke="#10b981" stroke-width="2"/>
+            <text x="217" y="26" fill="#94a3b8" font-size="8.5" font-weight="700">SCADA TELEMETRY</text>
+            <text x="217" y="44" fill="#fff" font-family="JetBrains Mono" font-size="10.5" font-weight="700" id="monLblScada">MODBUS FUNC 03</text>
+            <text x="217" y="58" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="monStatScada">● LINK VERIFIED</text>
+
+            <!-- 3. Casing CHP Box (Mid Left) -->
+            <rect id="monCardCHP" x="8" y="112" width="94" height="56" rx="7" fill="#111827" stroke="#10b981" stroke-width="2"/>
+            <text x="15" y="126" fill="#94a3b8" font-size="8.5" font-weight="700">CASING (CHP)</text>
+            <text x="15" y="144" fill="#fff" font-family="JetBrains Mono" font-size="12" font-weight="700" id="lblCHP">150 PSI</text>
+            <text x="15" y="158" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="monStatCHP">● NORMAL</text>
+
+            <!-- 4. Flow Rates Box (Mid Right) -->
+            <rect id="monCardFlow" x="210" y="112" width="122" height="62" rx="7" fill="#111827" stroke="#10b981" stroke-width="2"/>
+            <text x="217" y="126" fill="#94a3b8" font-size="8.5" font-weight="700">FLOW RATES</text>
+            <text x="217" y="143" fill="#fff" font-family="JetBrains Mono" font-size="11" font-weight="700" id="lblGas">320 MSCFD</text>
+            <text x="217" y="156" fill="#94a3b8" font-family="JetBrains Mono" font-size="9.5" id="lblWater">850 BPD</text>
+            <text x="217" y="168" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="monStatFlow">● FLOW STEADY</text>
+
+            <!-- 5. ESP Pump Load & Temp Box (Lower Right) -->
+            <rect id="monCardESP" x="210" y="278" width="122" height="72" rx="7" fill="#111827" stroke="#10b981" stroke-width="2"/>
+            <text x="217" y="292" fill="#94a3b8" font-size="8.5" font-weight="700">ESP PUMP & MOTOR</text>
+            <text x="217" y="309" fill="#fff" font-family="JetBrains Mono" font-size="11" font-weight="700" id="lblCurrent">58.0 Amps</text>
+            <text x="217" y="323" fill="#94a3b8" font-family="JetBrains Mono" font-size="9.5" id="lblRPM">3200 RPM • 185°F</text>
+            <text x="217" y="340" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="monStatESP">● MOTOR HEALTHY</text>
+
+            <!-- 6. Downhole BHP Box (Lower Left) -->
+            <rect id="monCardBHP" x="8" y="348" width="96" height="58" rx="7" fill="#111827" stroke="#10b981" stroke-width="2"/>
+            <text x="15" y="362" fill="#94a3b8" font-size="8.5" font-weight="700">DOWNHOLE BHP</text>
+            <text x="15" y="380" fill="#fff" font-family="JetBrains Mono" font-size="12" font-weight="700" id="lblBHP">1242 PSI</text>
+            <text x="15" y="396" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="monStatBHP">● NORMAL</text>
+          </svg>
+
+          <!-- Live Fault Callout Strip under Well W-001 Diagram -->
+          <div class="live-fault-strip" id="monFaultStrip">
+            <div id="monFaultText">
+              <strong style="color:var(--green)">✅ All 6 Well Zones Healthy:</strong> Pressures, flow column, and ESP motor are operating smoothly.
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: AI Layer 1 — Predictive Maintenance Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚙️ AI Layer 1: Predictive Maintenance</div>
+            <span class="badge" style="background:var(--red-soft);color:var(--red);">Random Forest ML</span>
+          </div>
+          <p style="font-size:0.83rem;color:var(--text-secondary);">
+            Predicts whether the well equipment is about to fail or need a workover.
+          </p>
+
+          <div class="score-hero">
+            <div class="score-number" id="pdmScoreBig" style="color:var(--red);">98%</div>
+            <div>
+              <div class="score-status" id="pdmCategoryBig" style="color:var(--red);">High Failure Risk</div>
+              <div style="font-size:0.78rem;color:var(--text-secondary);">Downtime probability score</div>
+            </div>
+          </div>
+
+          <div style="font-size:0.78rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;margin-bottom:10px;">
+            Top Parameters Driving This Prediction:
+          </div>
+          <div id="pdmReasonsList"></div>
+
+          <div class="action-box" id="pdmActionBox">
+            <strong>Recommended Action:</strong> Schedule preventive pump inspection and prepare maintenance crew.
+          </div>
+        </div>
+
+        <!-- Column 3: AI Layer 2 — Cyber & Sensor Integrity Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🛡️ AI Layer 2: Sensor & Cyber Check</div>
+            <span class="badge" style="background:var(--purple-soft);color:var(--purple);">Isolation Forest</span>
+          </div>
+          <p style="font-size:0.83rem;color:var(--text-secondary);">
+            Checks if sensor data are frozen, drifting, spiked, or manipulated via SCADA.
+          </p>
+
+          <div class="score-hero">
+            <div class="score-number" id="cyberScoreBig" style="color:var(--green);">12</div>
+            <div>
+              <div class="score-status" id="cyberStatusBig" style="color:var(--green);">Sensors Trusted</div>
+              <div style="font-size:0.78rem;color:var(--text-secondary);">Anomaly Score (Alert at 60+)</div>
+            </div>
+          </div>
+
+          <div style="font-size:0.78rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;margin-bottom:10px;">
+            Sensor & SCADA Integrity Checks:
+          </div>
+
+          <div id="cyberChecksList" style="display:flex;flex-direction:column;gap:9px;font-size:0.84rem;"></div>
+
+          <div class="action-box" id="cyberActionBox" style="border-left-color:var(--purple);">
+            <strong>Sensor Verdict:</strong> Readings are consistent with well physics. You can trust the failure prediction.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Card: Single Spacious Interactive Trend Chart with Engaging Playback -->
+      <div class="card">
+        <div class="chart-toolbar">
+          <div>
+            <h3 style="font-size:1rem;font-weight:700;">📈 Historical Time-Series Trends (24-Hour Scenario Window)</h3>
+            <p style="font-size:0.8rem;color:var(--text-secondary);">Watch the glowing vertical playhead sweep across the timeline as the well transitions from Normal to Fault.</p>
+          </div>
+
+          <div class="pill-group">
+            <button class="pill-btn active" onclick="switchChartMode('risk', this)">AI Risk Scores</button>
+            <button class="pill-btn" onclick="switchChartMode('pressures', this)">Well Pressures (PSI)</button>
+            <button class="pill-btn" onclick="switchChartMode('flow', this)">Flow & Pump Current</button>
+          </div>
+        </div>
+
+        <!-- Engaging Playback Controls + Color-Coded Timeline Zone Map -->
+        <div class="playback-controls-box">
+          <div class="playback-top-row">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <button class="btn-play" id="btnPlay" onclick="togglePlay()">▶ Play Live Timeline</button>
+              <button class="jump-fault-btn" onclick="jumpToFaultOnTimeline()">⚡ Jump to Where Issue Starts</button>
+              <div style="display:flex;gap:4px;margin-left:6px;">
+                <button class="speed-btn" id="spd_1" onclick="setPlaySpeed(1, 220)">1x</button>
+                <button class="speed-btn active" id="spd_2" onclick="setPlaySpeed(2, 110)">2x</button>
+                <button class="speed-btn" id="spd_5" onclick="setPlaySpeed(5, 45)">5x Fast</button>
+              </div>
+            </div>
+
+            <div style="font-family:var(--font-mono);font-size:0.8rem;color:#e2e8f0;">
+              Playhead: <strong id="playheadTimeText" style="color:var(--blue)">2026-08-18 18:00:00</strong>
+              <span id="playheadPhaseBadge" class="badge" style="margin-left:8px;background:var(--red-soft);color:var(--red);">🔴 FAULT ACTIVE</span>
+            </div>
+          </div>
+
+          <input type="range" id="timeSlider" min="0" max="359" value="180" oninput="scrubTo(this.value)" />
+          <!-- Color-coded zone bar showing where the normal vs fault periods are -->
+          <div class="timeline-Zones-bar" id="timelineZonesBar" title="Green = Normal | Red = Equipment Failure Risk | Purple = Cyber/Sensor Anomaly"></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.71rem;color:var(--text-muted);margin-top:4px;">
+            <span>00:00 (Start of Day)</span>
+            <span>🟢 Green = Healthy • 🔴 Red = Equipment Degradation • 🟣 Purple = Sensor/Cyber Issue</span>
+            <span>23:59 (End of Day)</span>
+          </div>
+        </div>
+
+        <div style="height:295px;width:100%;">
+          <canvas id="mainTrendChart"></canvas>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: INTERACTIVE WELL ANATOMY & REPAIR SIMULATOR                  -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="tab-simulator">
+
+      <div class="sim-layout">
+
+        <!-- COLUMN 1: SLIDERS & FAULT PRESETS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🎛️ 1. Adjust Parameters or Inject Faults</div>
+            <button class="fix-all-btn" onclick="setSimPreset('normal')">🛠️ Fix All / Reset</button>
+          </div>
+          <p style="font-size:0.81rem;color:var(--text-secondary);margin-bottom:12px;">
+            Move any slider UP or DOWN to see which physical part of the well gets damaged or affected on the interactive diagram.
+          </p>
+
+          <div class="grid-3">
+            <button class="Preset-btn" onclick="setSimPreset('normal')">🟢 Normal Well</button>
+            <button class="Preset-btn" onclick="setSimPreset('wear')">🔴 Pump Wear</button>
+            <button class="Preset-btn" onclick="setSimPreset('freeze')">🟣 Freeze Sensor</button>
+            <button class="Preset-btn" onclick="setSimPreset('both')">🚨 Both (Scen C)</button>
+            <button class="Preset-btn" onclick="setSimPreset('fdi')">⚡ Spoof BHP</button>
+            <button class="Preset-btn" onclick="setSimPreset('spike')">📈 Choke Spike</button>
+          </div>
+
+          <div class="slider-box" id="boxSimTHP" onclick="selectWellPart('thp_choke')">
+            <div class="slider-head">
+              <strong>Tubing Pressure — THP <span style="color:var(--text-muted);font-weight:400;">(Normal: 280)</span></strong>
+              <span class="slider-state-pill" id="pillSimTHP">280 PSI • OK</span>
+            </div>
+            <input type="range" id="simTHP" min="80" max="580" value="280" oninput="onSliderMoved('thp_choke')"/>
+          </div>
+
+          <div class="slider-box" id="boxSimCHP" onclick="selectWellPart('casing_annulus')">
+            <div class="slider-head">
+              <strong>Casing Pressure — CHP <span style="color:var(--text-muted);font-weight:400;">(Normal: 150)</span></strong>
+              <span class="slider-state-pill" id="pillSimCHP">150 PSI • OK</span>
+            </div>
+            <input type="range" id="simCHP" min="80" max="340" value="150" oninput="onSliderMoved('casing_annulus')"/>
+          </div>
+
+          <div class="slider-box" id="boxSimBHP" onclick="selectWellPart('downhole_bhp')">
+            <div class="slider-head">
+              <strong>Downhole Pressure — BHP <span style="color:var(--text-muted);font-weight:400;">(Normal: 1242)</span></strong>
+              <span class="slider-state-pill" id="pillSimBHP">1242 PSI • OK</span>
+            </div>
+            <input type="range" id="simBHP" min="350" max="1450" value="1242" oninput="onSliderMoved('downhole_bhp')"/>
+          </div>
+
+          <div class="slider-box" id="boxSimCurr" onclick="selectWellPart('esp_pump')">
+            <div class="slider-head">
+              <strong>Pump Motor Current <span style="color:var(--text-muted);font-weight:400;">(Normal: 58 A)</span></strong>
+              <span class="slider-state-pill" id="pillSimCurr">58.0 A • OK</span>
+            </div>
+            <input type="range" id="simCurr" min="20" max="92" step="0.5" value="58.0" oninput="onSliderMoved('esp_pump')"/>
+          </div>
+
+          <div class="slider-box" id="boxSimGas" onclick="selectWellPart('tubing_flow')">
+            <div class="slider-head">
+              <strong>Gas Flow Rate <span style="color:var(--text-muted);font-weight:400;">(Normal: 320)</span></strong>
+              <span class="slider-state-pill" id="pillSimGas">320 MSCFD • OK</span>
+            </div>
+            <input type="range" id="simGas" min="20" max="500" value="320" oninput="onSliderMoved('tubing_flow')"/>
+          </div>
+
+          <div class="slider-box" id="boxSimRPM" onclick="selectWellPart('esp_pump')">
+            <div class="slider-head">
+              <strong>Pump Speed — RPM <span style="color:var(--text-muted);font-weight:400;">(Normal: 3200)</span></strong>
+              <span class="slider-state-pill" id="pillSimRPM">3200 RPM • OK</span>
+            </div>
+            <input type="range" id="simRPM" min="1000" max="4500" step="10" value="3200" oninput="onSliderMoved('esp_pump')"/>
+          </div>
+
+          <label class="check-row">
+            <input type="checkbox" id="simFreeze" onchange="onSliderMoved('scada_rtu')"/>
+            <span><strong>Freeze Sensor (Scenario B):</strong> Lock Tubing Pressure flatline while Casing changes</span>
+          </label>
+          <label class="check-row" style="margin-bottom:0;">
+            <input type="checkbox" id="simModbusTamper" onchange="onSliderMoved('scada_rtu')"/>
+            <span><strong>Cyber Spoofing (Modbus Write):</strong> Unauthorized register modification on SCADA link</span>
+          </label>
+        </div>
+
+        <!-- COLUMN 2: INTERACTIVE CLICKABLE WELL ANATOMY IMAGE -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🔍 2. Click Any Well Part to Inspect & Fix</div>
+            <span class="badge" style="background:var(--blue-soft);color:var(--blue);" id="faultyPartsCountBadge">All 6 Parts OK</span>
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:10px;">
+            Parts turn <strong style="color:var(--amber)">Amber</strong>, <strong style="color:var(--red)">Red</strong>, or <strong style="color:var(--purple)">Purple</strong> when affected. <strong>Click any part on the diagram</strong> to see what is wrong and fix it:
+          </p>
+
+          <svg viewBox="0 0 340 490" width="100%" height="430" style="background:#070b14;border-radius:14px;border:1px solid var(--border);user-select:none;">
+            <rect x="0" y="105" width="340" height="385" fill="#0b1120"/>
+            <line x1="0" y1="105" x2="340" y2="105" stroke="#334155" stroke-width="2" stroke-dasharray="6,4"/>
+            <text x="12" y="97" fill="#64748b" font-size="9" font-weight="700">SURFACE GROUND LEVEL</text>
+
+            <!-- PART 3: CASING ANNULUS & CHP -->
+            <g class="well-part" id="svgPart_casing_annulus" onclick="selectWellPart('casing_annulus')">
+              <rect id="shape_casing_annulus" x="95" y="105" width="110" height="350" rx="4" fill="#111c33" stroke="#10b981" stroke-width="3"/>
+              <rect id="tag_casing_annulus" x="8" y="130" width="105" height="52" rx="8" fill="#111827" stroke="#10b981" stroke-width="2"/>
+              <text x="16" y="146" fill="#94a3b8" font-size="9" font-weight="700">2. CASING & ANNULUS</text>
+              <text x="16" y="164" fill="#fff" font-family="JetBrains Mono" font-size="12" font-weight="700" id="svgSimCHP">150 PSI</text>
+              <text x="16" y="176" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="svgSimCHPStatus">● NORMAL</text>
+            </g>
+
+            <!-- PART 4: PRODUCTION TUBING & GAS/WATER FLOW -->
+            <g class="well-part" id="svgPart_tubing_flow" onclick="selectWellPart('tubing_flow')">
+              <rect id="shape_tubing_flow" x="132" y="70" width="36" height="260" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
+              <line id="simFlowAnim" x1="150" y1="320" x2="150" y2="75" stroke="#38bdf8" stroke-width="8" stroke-dasharray="10,10"/>
+              <rect id="tag_tubing_flow" x="192" y="195" width="140" height="54" rx="8" fill="#111827" stroke="#10b981" stroke-width="2"/>
+              <text x="200" y="211" fill="#94a3b8" font-size="9" font-weight="700">4. TUBING FLOW COLUMN</text>
+              <text x="200" y="229" fill="#fff" font-family="JetBrains Mono" font-size="11" font-weight="700" id="svgSimFlow">320 MSCFD • 848 BPD</text>
+              <text x="200" y="242" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="svgSimFlowStatus">● LIFT HEALTHY</text>
+            </g>
+
+            <!-- PART 1: WELLHEAD TREE, THP & SURFACE CHOKE -->
+            <g class="well-part" id="svgPart_thp_choke" onclick="selectWellPart('thp_choke')">
+              <rect id="shape_thp_choke" x="115" y="20" width="70" height="52" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+              <line x1="185" y1="46" x2="230" y2="46" stroke="#38bdf8" stroke-width="6"/>
+              <rect x="8" y="16" width="102" height="56" rx="8" fill="#111827" stroke="#10b981" stroke-width="2" id="tag_thp_choke"/>
+              <text x="16" y="32" fill="#94a3b8" font-size="9" font-weight="700">1. WELLHEAD & THP</text>
+              <text x="16" y="50" fill="#fff" font-family="JetBrains Mono" font-size="12" font-weight="700" id="svgSimTHP">280 PSI</text>
+              <text x="16" y="64" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="svgSimTHPStatus">● NORMAL</text>
+            </g>
+
+            <!-- PART 2: SCADA RTU & SENSOR TELEMETRY LINK -->
+            <g class="well-part" id="svgPart_scada_rtu" onclick="selectWellPart('scada_rtu')">
+              <rect id="tag_scada_rtu" x="205" y="16" width="127" height="58" rx="8" fill="#111827" stroke="#10b981" stroke-width="2"/>
+              <text x="213" y="32" fill="#94a3b8" font-size="9" font-weight="700">3. SCADA / MODBUS RTU</text>
+              <text x="213" y="49" fill="#fff" font-family="JetBrains Mono" font-size="11" font-weight="700" id="svgSimScada">FUNC 03 (READ)</text>
+              <text x="213" y="64" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="svgSimScadaStatus">● SENSORS VERIFIED</text>
+            </g>
+
+            <!-- PART 5: DOWNHOLE ESP PUMP & MOTOR -->
+            <g class="well-part" id="svgPart_esp_pump" onclick="selectWellPart('esp_pump')">
+              <rect id="shape_esp_pump" x="122" y="320" width="56" height="72" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+              <circle cx="150" cy="356" r="14" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="5,4"/>
+              <text x="150" y="360" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="8" font-weight="700">ESP</text>
+              <rect id="tag_esp_pump" x="192" y="322" width="140" height="62" rx="8" fill="#111827" stroke="#10b981" stroke-width="2"/>
+              <text x="200" y="338" fill="#94a3b8" font-size="9" font-weight="700">5. ESP PUMP & MOTOR</text>
+              <text x="200" y="356" fill="#fff" font-family="JetBrains Mono" font-size="11" font-weight="700" id="svgSimESP">58.0 A • 3200 RPM</text>
+              <text x="200" y="374" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="svgSimESPStatus">● MOTOR HEALTHY</text>
+            </g>
+
+            <!-- PART 6: DOWNHOLE GAUGE (BHP) & RESERVOIR ZONE -->
+            <g class="well-part" id="svgPart_downhole_bhp" onclick="selectWellPart('downhole_bhp')">
+              <rect id="shape_downhole_bhp" x="115" y="410" width="70" height="36" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="2.5"/>
+              <text x="150" y="432" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9" font-weight="700">BHP GAUGE</text>
+              <rect id="tag_downhole_bhp" x="8" y="402" width="102" height="56" rx="8" fill="#111827" stroke="#10b981" stroke-width="2"/>
+              <text x="16" y="418" fill="#94a3b8" font-size="9" font-weight="700">6. DOWNHOLE BHP</text>
+              <text x="16" y="436" fill="#fff" font-family="JetBrains Mono" font-size="12" font-weight="700" id="svgSimBHP">1242 PSI</text>
+              <text x="16" y="450" fill="#10b981" font-family="JetBrains Mono" font-size="8" font-weight="700" id="svgSimBHPStatus">● NORMAL</text>
+            </g>
+          </svg>
+
+          <div class="part-pills">
+            <button class="part-pill-btn active" id="btnPart_thp_choke" onclick="selectWellPart('thp_choke')">
+              <span class="status-dot" id="dot_thp_choke" style="background:var(--green)"></span>1. Wellhead/THP
+            </button>
+            <button class="part-pill-btn" id="btnPart_casing_annulus" onclick="selectWellPart('casing_annulus')">
+              <span class="status-dot" id="dot_casing_annulus" style="background:var(--green)"></span>2. Casing/CHP
+            </button>
+            <button class="part-pill-btn" id="btnPart_scada_rtu" onclick="selectWellPart('scada_rtu')">
+              <span class="status-dot" id="dot_scada_rtu" style="background:var(--green)"></span>3. SCADA/Sensor
+            </button>
+            <button class="part-pill-btn" id="btnPart_tubing_flow" onclick="selectWellPart('tubing_flow')">
+              <span class="status-dot" id="dot_tubing_flow" style="background:var(--green)"></span>4. Tubing Flow
+            </button>
+            <button class="part-pill-btn" id="btnPart_esp_pump" onclick="selectWellPart('esp_pump')">
+              <span class="status-dot" id="dot_esp_pump" style="background:var(--green)"></span>5. ESP Pump
+            </button>
+            <button class="part-pill-btn" id="btnPart_downhole_bhp" onclick="selectWellPart('downhole_bhp')">
+              <span class="status-dot" id="dot_downhole_bhp" style="background:var(--green)"></span>6. Downhole BHP
+            </button>
+          </div>
+        </div>
+
+        <!-- COLUMN 3: LIVE AI DECISION + SELECTED PART DIAGNOSIS & ONE-CLICK FIX -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚡ 3. Live AI Output & Component Repair</div>
+            <span class="badge" style="background:var(--green-soft);color:var(--green);">Real-Time Diagnosis</span>
+          </div>
+
+          <div class="verdict-banner verdict-normal" id="simVerdictBanner" style="margin-bottom:14px;padding:14px 18px;">
+            <div>
+              <div class="verdict-title" id="simVerdictTitle" style="font-size:1.02rem;">🟢 NORMAL OPERATION</div>
+              <div class="verdict-desc" id="simVerdictDesc" style="font-size:0.82rem;">Both equipment health and sensor data are within safe operating limits.</div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom:16px;gap:12px;">
+            <div style="background:#0b0f19;padding:14px 16px;border-radius:12px;border:1px solid var(--border);">
+              <div style="font-size:0.76rem;color:var(--text-secondary);">Layer 1: Equipment Failure Risk</div>
+              <div class="score-number" id="simOutRisk" style="font-size:2rem;margin:6px 0;color:var(--green);">1.0%</div>
+              <div id="simOutRiskCat" style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);">Low Failure Risk</div>
+            </div>
+
+            <div style="background:#0b0f19;padding:14px 16px;border-radius:12px;border:1px solid var(--border);">
+              <div style="font-size:0.76rem;color:var(--text-secondary);">Layer 2: Cyber / Sensor Score</div>
+              <div class="score-number" id="simOutCyber" style="font-size:2rem;margin:6px 0;color:var(--green);">0.0 / 100</div>
+              <div id="simOutCyberCat" style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);">Normal Sensor Data</div>
+            </div>
+          </div>
+
+          <div id="selectedPartCard" style="background:#0b0f19;border:1.5px solid var(--border);border-radius:14px;padding:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;">
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--blue);letter-spacing:0.06em;">
+                  SELECTED WELL COMPONENT
+                </div>
+                <h3 id="inspPartTitle" style="font-size:1.08rem;font-weight:800;color:#fff;margin-top:2px;">
+                  1. Wellhead & Tubing Pressure (THP)
+                </h3>
+              </div>
+              <span class="badge" id="inspPartBadge" style="background:var(--green-soft);color:var(--green);">✅ HEALTHY</span>
+            </div>
+
+            <div id="inspCurrentIssueBox" style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:0.84rem;line-height:1.55;">
+            </div>
+
+            <div class="grid-2" style="gap:10px;margin-bottom:12px;">
+              <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:9px;padding:10px;font-size:0.77rem;">
+                <strong style="color:var(--amber);display:block;margin-bottom:3px;">📈 If Value Goes TOO HIGH:</strong>
+                <span id="inspIfHigh" style="color:var(--text-secondary);"></span>
+              </div>
+              <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:9px;padding:10px;font-size:0.77rem;">
+                <strong style="color:var(--blue);display:block;margin-bottom:3px;">📉 If Value Goes TOO LOW:</strong>
+                <span id="inspIfLow" style="color:var(--text-secondary);"></span>
+              </div>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.73rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;margin-bottom:6px;">
+                Connected Parts Affected by This Component:
+              </div>
+              <div id="inspConnectedChips"></div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:14px;">
+              <button class="fix-btn" id="btnFixSelectedPart" onclick="fixPart(selectedWellPart)">
+                🔧 Fix This Part (Restore to Normal)
+              </button>
+              <span id="fixHintText" style="font-size:0.76rem;color:var(--text-secondary);">
+                Resets this part's parameters back to safe baseline.
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: REAL-WORLD CASE STUDIES (OISD, BOLLSTA, OIL INDIA)           -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="tab-cases">
+      <div class="section-label">
+        <span>How Our Dashboard Maps to the 3 Real-Life Oil & Gas Incidents in Your Report</span>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--red-soft);color:var(--red);margin-bottom:6px;display:inline-block;">Main Case Study • OISD (Feb 2026)</span>
+            <h2 style="font-size:1.15rem;font-weight:700;">Case Study 2: Gas Blowout at Onshore Workover Rig, India</h2>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:0;">
+          <div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:14px;">
+              <strong>What Happened:</strong> Uncontrolled gas flow occurred right after perforation. The BOP blind ram could not close because the wireline cable was inside the well and <strong>no shear ram was installed</strong>. Uncheck the boxes below to see how pre-operation verification clears the warnings:
+            </p>
+
+            <label class="check-row"><input type="checkbox" id="csGto" checked onchange="updateCaseOisd()"/> <span><strong>1. Conflicting Geological Data:</strong> Offset well & drilling showed gas, but plan assumed oil-only</span></label>
+            <label class="check-row"><input type="checkbox" id="csCbl" checked onchange="updateCaseOisd()"/> <span><strong>2. Poor Cement Bond (CBL-VDL):</strong> Weak cement isolation behind casing</span></label>
+            <label class="check-row"><input type="checkbox" id="csFluid" checked onchange="updateCaseOisd()"/> <span><strong>3. Lighter Completion Fluid:</strong> Reduced hydrostatic pressure (Ph = ρgh) below safe margin</span></label>
+            <label class="check-row"><input type="checkbox" id="csBop" checked onchange="updateCaseOisd()"/> <span><strong>4. Missing BOP Shear Ram:</strong> Cannot cut wireline to seal the well</span></label>
+            <label class="check-row"><input type="checkbox" id="csTrip" checked onchange="updateCaseOisd()"/> <span><strong>5. Trip Tank Isolated:</strong> Lost ability to track well fluid volume changes</span></label>
+          </div>
+
+          <div style="background:#0b0f19;padding:20px;border-radius:14px;border:1px solid var(--border);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;color:var(--text-secondary);margin-bottom:10px;">
+              Dashboard Pre-Perforation Readiness Output:
+            </div>
+            <div id="csOisdResultBox"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="badge" style="background:var(--purple-soft);color:var(--purple);margin-bottom:8px;display:inline-block;">Case Study 3 • Equinor Norway (2025)</span>
+          <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;">Deepsea Bollsta Well-Control Incident</h3>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:12px;">
+            <strong>What Went Wrong:</strong> During casing cutting (P&A), 930 kg of gas released onto the rig because the outer barrier failed, <strong>logging equipment was poorly calibrated</strong>, and <strong>differential-pressure (ΔP) data were not used</strong>.
+          </p>
+          <div class="action-box" style="border-left-color:var(--purple);">
+            <strong>How Our Dashboard Helps:</strong> Continuously trends Differential Pressure ($\Delta P = P_1 - P_2$), flags inconsistent pressure relationships, and alerts when gauge/logging calibration is overdue.
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="badge" style="background:var(--amber-soft);color:var(--amber);margin-bottom:8px;display:inline-block;">Case Study 1 • Oil India Assam (Nov 2026)</span>
+          <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;">Intermediate Tank Farm Heater Fire</h3>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:12px;">
+            <strong>What Went Wrong:</strong> A major fire broke out during maintenance on an Indirect Bath Heater (IDBH) that had been isolated for two days.
+          </p>
+          <div class="action-box" style="border-left-color:var(--amber);">
+            <strong>How Our Dashboard Helps:</strong> Extends monitoring to surface equipment (heater temperature, inlet/outlet pressure, pump vibration, and frozen-sensor checks) alongside physical isolation (LOTO) and permit-to-work barriers.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: ML MODEL EVALUATION RESULTS                                  -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="tab-models">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🏆 Objective 2: Predictive Maintenance Models</div>
+            <span class="badge" style="background:var(--green-soft);color:var(--green);">Days 43–60 Test Split</span>
+          </div>
+          <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:14px;">
+            Trained on the first 42 days (60,479 mins) and tested on the final 18 unseen days (25,921 mins).
+          </p>
+          <table class="clean-table" id="simplePdmTable">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Accuracy</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+                <th>ROC-AUC</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🛡️ Objective 3: Cyber / Sensor Anomaly Detection</div>
+            <span class="badge" style="background:var(--purple-soft);color:var(--purple);">5 Anomaly Types</span>
+          </div>
+          <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:14px;">
+            Physics-Informed Isolation Forest detection accuracy across all 5 simulated anomaly categories:
+          </p>
+          <table class="clean-table" id="simpleCyberTable">
+            <thead>
+              <tr>
+                <th>Anomaly Type</th>
+                <th>Test Minutes</th>
+                <th>Detection Rate</th>
+                <th>Avg Score</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======================= JAVASCRIPT LOGIC ======================= -->
+  <script>
+    let initData = null;
+    let winData = null;
+    let curStep = 180;
+    let chartMode = 'risk';
+    let mainChart = null;
+    let timer = null;
+    let playIntervalMs = 110;
+    let selectedWellPart = 'thp_choke';
+    let currentPartDiagnostics = {};
+    let monRotorAngle = 0;
+    let monFlowOffset = 0;
+
+    // Custom Chart.js Plugin to Draw Glowing Vertical Playhead Line + Active Dots
+    const verticalPlayheadPlugin = {
+      id: 'verticalPlayhead',
+      afterDraw(chart) {
+        if (!chart.scales.x || curStep == null) return;
+        const meta = chart.getDatasetMeta(0);
+        if (!meta || !meta.data || !meta.data[curStep]) return;
+
+        const xPos = meta.data[curStep].x;
+        const topY = chart.scales.y.top;
+        const bottomY = chart.scales.y.bottom;
+        const ctx = chart.ctx;
+
+        ctx.save();
+        // Glowing vertical cursor line
+        ctx.beginPath();
+        ctx.moveTo(xPos, topY);
+        ctx.lineTo(xPos, bottomY);
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = '#38bdf8';
+        ctx.shadowColor = '#38bdf8';
+        ctx.shadowBlur = 10;
+        ctx.stroke();
+
+        // Draw glowing circles on each dataset at curStep
+        chart.data.datasets.forEach((ds, dsIdx) => {
+          const m = chart.getDatasetMeta(dsIdx);
+          if (m && m.data && m.data[curStep]) {
+            const pt = m.data[curStep];
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, 5.5, 0, Math.PI * 2);
+            ctx.fillStyle = ds.borderColor || '#fff';
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#fff';
+            ctx.stroke();
+          }
+        });
+        ctx.restore();
+      }
+    };
+
+    Chart.register(verticalPlayheadPlugin);
+
+    // Continuous 60fps animation for Well W-001 Live Readings Diagram
+    function animateLiveMonitorWell() {
+      if (winData && winData.window) {
+        const w = winData.window;
+        const rpm = w.rpm[curStep] || 0;
+        const waterRate = w.water_rate[curStep] || 0;
+
+        const rpmFactor = Math.max(0, rpm / 3200);
+        monRotorAngle = (monRotorAngle + 4.5 * rpmFactor) % 360;
+        const rotEl = document.getElementById('monPumpRotor');
+        if (rotEl) rotEl.setAttribute('transform', `rotate(${monRotorAngle} 155 322)`);
+
+        const flowFactor = Math.max(0, waterRate / 850);
+        monFlowOffset = (monFlowOffset - 1.1 * flowFactor) % 20;
+        const flEl = document.getElementById('monFlowStream');
+        if (flEl) flEl.setAttribute('stroke-dashoffset', monFlowOffset);
+      }
+      requestAnimationFrame(animateLiveMonitorWell);
+    }
+
+    const WELL_PARTS_INFO = {
+      thp_choke: {
+        title: '1. Wellhead & Tubing Pressure (THP) + Choke Valve',
+        ifHigh: 'Surface choke restriction, hydrate/wax blockage in flowline, or sudden valve closure (water hammer).',
+        ifLow: 'ESP pump wear (losing lift head), tubing string hole/leak, or declining reservoir pressure.',
+        connected: [
+          { id: 'tubing_flow', name: '4. Tubing Flow Column' },
+          { id: 'esp_pump', name: '5. ESP Pump & Motor' },
+          { id: 'scada_rtu', name: '3. SCADA / Sensor Link' }
+        ]
+      },
+      casing_annulus: {
+        title: '2. Casing Annulus & Casing Head Pressure (CHP)',
+        ifHigh: 'Annulus gas migration/buildup, packer leak, poor CBL cement bond, or creeping sensor drift bias.',
+        ifLow: 'Annulus fluid bleed-off or gauge calibration under-reading.',
+        connected: [
+          { id: 'thp_choke', name: '1. Wellhead & THP' },
+          { id: 'downhole_bhp', name: '6. Downhole BHP' }
+        ]
+      },
+      scada_rtu: {
+        title: '3. SCADA RTU & Modbus Telemetry Link',
+        ifHigh: 'Unauthorized Modbus Write (Func 05/06/16) spoofing register values or DoS packet flooding.',
+        ifLow: 'Telemetry link drop / frozen flatline sensor readings hiding real well changes.',
+        connected: [
+          { id: 'thp_choke', name: '1. Wellhead & THP' },
+          { id: 'downhole_bhp', name: '6. Downhole BHP' },
+          { id: 'esp_pump', name: '5. ESP Pump & Motor' }
+        ]
+      },
+      tubing_flow: {
+        title: '4. Production Tubing String & Gas/Water Flow',
+        ifHigh: 'Uncontrolled gas kick / surge or overspeeding ESP pump.',
+        ifLow: 'Pump stage degradation, scale buildup inside tubing, intake plugging, or choked surface valve.',
+        connected: [
+          { id: 'esp_pump', name: '5. ESP Pump & Motor' },
+          { id: 'thp_choke', name: '1. Wellhead & THP' }
+        ]
+      },
+      esp_pump: {
+        title: '5. Downhole ESP Pump & Motor Assembly',
+        ifHigh: 'Mechanical bearing wear, scale friction, high viscosity/sand load (Amps > 63A), or overspeeding RPM.',
+        ifLow: 'Pump shaft shear, gas locking, under-load, or power supply trip.',
+        connected: [
+          { id: 'tubing_flow', name: '4. Tubing Flow Column' },
+          { id: 'thp_choke', name: '1. Wellhead & THP' },
+          { id: 'downhole_bhp', name: '6. Downhole BHP' }
+        ]
+      },
+      downhole_bhp: {
+        title: '6. Downhole Gauge (BHP) & Reservoir Inflow',
+        ifHigh: 'Pump shut-in pressure buildup or formation overpressure kick.',
+        ifLow: 'False-Data Injection spoofing low BHP (~420 PSI), reservoir depletion, or near-wellbore skin plugging.',
+        connected: [
+          { id: 'esp_pump', name: '5. ESP Pump & Motor' },
+          { id: 'scada_rtu', name: '3. SCADA / Sensor Link' }
+        ]
+      }
+    };
+
+    async function boot() {
+      const r = await fetch('/api/init');
+      initData = await r.json();
+      fillModelTables(initData.eval_summary);
+      createMainChart();
+      await selectScenario('scenario_a');
+      updateCaseOisd();
+      await updateLiveSimulator();
+      requestAnimationFrame(animateLiveMonitorWell);
+    }
+
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function fillModelTables(summary) {
+      if (!summary) return;
+      const tb1 = document.querySelector('#simplePdmTable tbody');
+      tb1.innerHTML = '';
+      for (const [name, m] of Object.entries(summary.pdm_metrics)) {
+        tb1.innerHTML += `
+          <tr>
+            <td><strong>${name}</strong></td>
+            <td style="font-family:var(--font-mono);color:var(--green)">${(m.Accuracy * 100).toFixed(2)}%</td>
+            <td style="font-family:var(--font-mono)">${m.Precision.toFixed(4)}</td>
+            <td style="font-family:var(--font-mono)">${m.Recall.toFixed(4)}</td>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--blue)">${m.F1_Score.toFixed(4)}</td>
+            <td style="font-family:var(--font-mono)">${m.ROC_AUC.toFixed(4)}</td>
+          </tr>
+        `;
+      }
+
+      const tb2 = document.querySelector('#simpleCyberTable tbody');
+      tb2.innerHTML = '';
+      for (const [cat, info] of Object.entries(summary.anomaly_type_recall)) {
+        tb2.innerHTML += `
+          <tr>
+            <td><strong>${cat.replace(/_/g, ' ')}</strong></td>
+            <td style="font-family:var(--font-mono)">${info.Test_Minutes} mins</td>
+            <td style="font-family:var(--font-mono);color:var(--green);font-weight:700">${info.Detection_Rate_Pct.toFixed(1)}%</td>
+            <td style="font-family:var(--font-mono)">${info.Mean_Anomaly_Score} / 100</td>
+          </tr>
+        `;
+      }
+    }
+
+    function createMainChart() {
+      const ctx = document.getElementById('mainTrendChart').getContext('2d');
+      mainChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          interaction: { mode: 'index', intersect: false },
+          onClick: (e, els) => {
+            if (els && els.length > 0) scrubTo(els[0].index);
+          },
+          plugins: {
+            legend: {
+              labels: { color: '#e2e8f0', font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' } }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94a3b8', maxTicksLimit: 8 }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94a3b8' }
+            }
+          }
+        }
+      });
+    }
+
+    function buildTimelineZonesBar(w) {
+      const bar = document.getElementById('timelineZonesBar');
+      const n = w.timestamps.length;
+      bar.innerHTML = w.timestamps.map((_, i) => {
+        const r = w.failure_risk[i];
+        const c = w.cyber_score[i];
+        let col = '#10b981'; // Green normal
+        if (r > 65 && c >= 60) col = '#f43f5e';
+        else if (c >= 60) col = '#a855f7';
+        else if (r > 65) col = '#ef4444';
+        else if (r > 30 || c > 30) col = '#f59e0b';
+        return `<div style="flex:1;background:${col};"></div>`;
+      }).join('');
+    }
+
+    function jumpToFaultOnTimeline() {
+      if (!winData || !winData.window) return;
+      const w = winData.window;
+      for (let i = 0; i < w.timestamps.length; i++) {
+        if (w.failure_risk[i] > 35 || w.cyber_score[i] >= 55) {
+          scrubTo(Math.max(0, i - 3));
+          return;
+        }
+      }
+      scrubTo(Math.floor(w.timestamps.length * 0.5));
+    }
+
+    async function selectScenario(key) {
+      document.querySelectorAll('.scen-card').forEach(c => c.classList.remove('active'));
+      const cardEl = document.getElementById('card_' + key);
+      if (cardEl) cardEl.classList.add('active');
+      if (['normal', 'scenario_a', 'scenario_b', 'scenario_c'].includes(key)) {
+        document.getElementById('extraAnomalySelect').value = '';
+      }
+
+      const preset = initData.presets[key];
+      const res = await fetch(`/api/window?start_day=${preset.start_day}&end_day=${preset.end_day}&focus_idx=${preset.focus_idx}`);
+      winData = await res.json();
+
+      const w = winData.window;
+      buildTimelineZonesBar(w);
+
+      let targetIdx = Math.floor(w.indices.length * 0.65);
+      for (let i = 0; i < w.indices.length; i++) {
+        if (w.indices[i] >= preset.focus_idx) {
+          targetIdx = i;
+          break;
+        }
+      }
+
+      const slider = document.getElementById('timeSlider');
+      slider.max = w.timestamps.length - 1;
+      slider.value = targetIdx;
+
+      refreshChartDatasets();
+      scrubTo(targetIdx);
+    }
+
+    function switchChartMode(mode, btn) {
+      chartMode = mode;
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      refreshChartDatasets();
+    }
+
+    function refreshChartDatasets() {
+      if (!winData) return;
+      const w = winData.window;
+      mainChart.data.labels = w.timestamps.map(t => t.slice(5, 16));
+
+      if (chartMode === 'risk') {
+        mainChart.data.datasets = [
+          {
+            label: 'Equipment Failure Risk (%)',
+            data: w.failure_risk,
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.14)',
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 0
+          },
+          {
+            label: 'Cyber / Sensor Anomaly Score (0–100)',
+            data: w.cyber_score,
+            borderColor: '#a855f7',
+            backgroundColor: 'rgba(168, 85, 247, 0.14)',
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 0
+          }
+        ];
+      } else if (chartMode === 'pressures') {
+        mainChart.data.datasets = [
+          { label: 'Tubing Head Pressure (THP)', data: w.thp, borderColor: '#38bdf8', borderWidth: 2, pointRadius: 0 },
+          { label: 'Casing Head Pressure (CHP)', data: w.chp, borderColor: '#f59e0b', borderWidth: 2, pointRadius: 0 },
+          { label: 'Downhole Pressure (BHP)', data: w.bhp, borderColor: '#10b981', borderDash: [4, 4], borderWidth: 2, pointRadius: 0 }
+        ];
+      } else {
+        mainChart.data.datasets = [
+          { label: 'Gas Flow Rate (MSCFD)', data: w.gas_rate, borderColor: '#38bdf8', borderWidth: 2, pointRadius: 0 },
+          { label: 'Pump Motor Current (Amps)', data: w.current, borderColor: '#f43f5e', borderWidth: 2.5, pointRadius: 0 },
+          { label: 'Downhole Temperature (°F)', data: w.temp, borderColor: '#f59e0b', borderWidth: 2, pointRadius: 0 }
+        ];
+      }
+      mainChart.update();
+    }
+
+    function styleMonitorPart(cardId, shapeId, statId, color, statText) {
+      const cEl = document.getElementById(cardId);
+      if (cEl) cEl.setAttribute('stroke', color);
+      const sEl = document.getElementById(shapeId);
+      if (sEl) sEl.setAttribute('stroke', color);
+      const tEl = document.getElementById(statId);
+      if (tEl) {
+        tEl.setAttribute('fill', color);
+        tEl.textContent = statText;
+      }
+    }
+
+    function scrubTo(idx) {
+      curStep = parseInt(idx, 10);
+      document.getElementById('timeSlider').value = curStep;
+      const w = winData.window;
+
+      const s = {
+        timestamp: w.timestamps[curStep],
+        thp: w.thp[curStep],
+        chp: w.chp[curStep],
+        bhp: w.bhp[curStep],
+        temp: w.temp[curStep],
+        rpm: w.rpm[curStep],
+        current: w.current[curStep],
+        water_rate: w.water_rate[curStep],
+        gas_rate: w.gas_rate[curStep],
+        water_level: w.water_level[curStep],
+        choke: w.choke[curStep],
+        modbus: w.modbus[curStep],
+        packet_loss: w.packet_loss[curStep],
+        risk: w.failure_risk[curStep],
+        cyber: w.cyber_score[curStep]
+      };
+
+      document.getElementById('verdictClock').textContent = s.timestamp;
+      document.getElementById('playheadTimeText').textContent = s.timestamp;
+
+      // Redraw chart so vertical playhead moves smoothly!
+      if (mainChart) mainChart.draw();
+
+      // Update Well W-001 Live Readings Diagram values & per-part fault highlights!
+      document.getElementById('lblTHP').textContent = `${s.thp.toFixed(0)} PSI`;
+      document.getElementById('lblCHP').textContent = `${s.chp.toFixed(0)} PSI`;
+      document.getElementById('lblGas').textContent = `${s.gas_rate.toFixed(0)} MSCFD`;
+      document.getElementById('lblWater').textContent = `${s.water_rate.toFixed(0)} BPD`;
+      document.getElementById('lblCurrent').textContent = `${s.current.toFixed(1)} Amps`;
+      document.getElementById('lblRPM').textContent = `${s.rpm.toFixed(0)} RPM • ${s.temp.toFixed(0)}°F`;
+      document.getElementById('lblBHP').textContent = `${s.bhp.toFixed(0)} PSI`;
+      document.getElementById('monLblScada').textContent = s.modbus === 3 ? (s.packet_loss > 20 ? 'LINK FROZEN' : 'MODBUS FUNC 03') : `FUNC ${s.modbus} (SPOOF!)`;
+
+      // Dynamic annulus water level
+      const lvlNorm = Math.min(1, Math.max(0, (s.water_level - 400) / 220));
+      const yTop = 250 - lvlNorm * 90;
+      const annEl = document.getElementById('monAnnulusFluid');
+      if (annEl) {
+        annEl.setAttribute('y', yTop);
+        annEl.setAttribute('height', 394 - yTop);
+      }
+
+      // Highlight exact parts going south on Well W-001 diagram
+      const issuesGoingSouth = [];
+
+      // Check 1: THP
+      if (s.packet_loss > 20) {
+        styleMonitorPart('monCardTHP', 'monShapeTHP', 'monStatTHP', '#a855f7', '❄️ SENSOR FROZEN');
+        issuesGoingSouth.push('❄️ <strong>Tubing Sensor:</strong> Frozen flatline');
+      } else if (s.thp < 255) {
+        styleMonitorPart('monCardTHP', 'monShapeTHP', 'monStatTHP', '#ef4444', `🔴 DROPPING (${(s.thp - 280).toFixed(0)} PSI)`);
+        issuesGoingSouth.push(`🔴 <strong>Tubing Head:</strong> Pressure dropping (${s.thp.toFixed(0)} PSI)`);
+      } else if (s.thp > 305) {
+        styleMonitorPart('monCardTHP', 'monShapeTHP', 'monStatTHP', '#ef4444', `🔴 SPIKE (+${(s.thp - 280).toFixed(0)} PSI)`);
+        issuesGoingSouth.push(`🔴 <strong>Tubing Head:</strong> Overpressure spike (${s.thp.toFixed(0)} PSI)`);
+      } else {
+        styleMonitorPart('monCardTHP', 'monShapeTHP', 'monStatTHP', '#10b981', '● NORMAL');
+      }
+
+      // Check 2: CHP
+      if (s.chp > 168) {
+        const chpCol = s.cyber >= 60 ? '#a855f7' : '#f59e0b';
+        styleMonitorPart('monCardCHP', 'monShapeCHP', 'monStatCHP', chpCol, `⚠️ RISING (+${(s.chp - 150).toFixed(0)} PSI)`);
+        issuesGoingSouth.push(`⚠️ <strong>Casing Annulus:</strong> Pressure rising (${s.chp.toFixed(0)} PSI)`);
+      } else {
+        styleMonitorPart('monCardCHP', 'monShapeCHP', 'monStatCHP', '#10b981', '● NORMAL');
+      }
+
+      // Check 3: SCADA Link
+      if (s.modbus !== 3 || s.packet_loss > 20 || s.cyber >= 60) {
+        styleMonitorPart('monCardScada', null, 'monStatScada', '#a855f7', s.modbus !== 3 ? '⚡ WRITE TAMPER!' : '🟣 ANOMALY');
+        issuesGoingSouth.push('🟣 <strong>SCADA Telemetry:</strong> Sensor/protocol integrity breach');
+      } else {
+        styleMonitorPart('monCardScada', null, 'monStatScada', '#10b981', '● LINK VERIFIED');
+      }
+
+      // Check 4: Flow Rates
+      if (s.rpm < 100) {
+        styleMonitorPart('monCardFlow', 'monShapeFlow', 'monStatFlow', '#ef4444', '🔴 SHUT-IN (0 FLOW)');
+        issuesGoingSouth.push('🔴 <strong>Tubing Flow:</strong> Well shut-in (Downtime)');
+      } else if (s.gas_rate < 285) {
+        styleMonitorPart('monCardFlow', 'monShapeFlow', 'monStatFlow', '#f59e0b', '⚠️ FLOW DECLINING');
+        issuesGoingSouth.push(`⚠️ <strong>Tubing Flow:</strong> Gas rate declining (${s.gas_rate.toFixed(0)} MSCFD)`);
+      } else {
+        styleMonitorPart('monCardFlow', 'monShapeFlow', 'monStatFlow', '#10b981', '● FLOW STEADY');
+      }
+
+      // Check 5: ESP Pump & Motor
+      const heatGlow = document.getElementById('monPumpHeatGlow');
+      if (s.rpm < 100) {
+        styleMonitorPart('monCardESP', 'monShapeESP', 'monStatESP', '#ef4444', '🔴 PUMP TRIPPED');
+        if (heatGlow) heatGlow.setAttribute('fill', 'rgba(239, 68, 68, 0.35)');
+        issuesGoingSouth.push('🔴 <strong>ESP Pump:</strong> Tripped offline');
+      } else if (s.current > 63 || s.rpm > 3600) {
+        styleMonitorPart('monCardESP', 'monShapeESP', 'monStatESP', '#ef4444', `🔴 OVERLOAD (${s.current.toFixed(1)}A)`);
+        if (heatGlow) heatGlow.setAttribute('fill', 'rgba(239, 68, 68, 0.28)');
+        issuesGoingSouth.push(`🔴 <strong>ESP Motor:</strong> Overheating & high current (${s.current.toFixed(1)} A, ${s.temp.toFixed(0)}°F)`);
+      } else {
+        styleMonitorPart('monCardESP', 'monShapeESP', 'monStatESP', '#10b981', '● MOTOR HEALTHY');
+        if (heatGlow) heatGlow.setAttribute('fill', 'rgba(239, 68, 68, 0)');
+      }
+
+      // Check 6: Downhole BHP
+      if (s.bhp < 900) {
+        styleMonitorPart('monCardBHP', 'monShapeBHP', 'monStatBHP', '#a855f7', '⚡ SPOOFED LOW!');
+        issuesGoingSouth.push(`⚡ <strong>Downhole BHP:</strong> Spoofed reading (${s.bhp.toFixed(0)} PSI)`);
+      } else if (s.bhp > 1300) {
+        styleMonitorPart('monCardBHP', 'monShapeBHP', 'monStatBHP', '#f59e0b', '⚠️ HIGH BUILDUP');
+      } else {
+        styleMonitorPart('monCardBHP', 'monShapeBHP', 'monStatBHP', '#10b981', '● NORMAL');
+      }
+
+      // Update Live Fault Strip below Well W-001 Diagram
+      const faultStrip = document.getElementById('monFaultStrip');
+      const faultTxt = document.getElementById('monFaultText');
+      if (issuesGoingSouth.length === 0) {
+        faultStrip.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+        faultTxt.innerHTML = `<strong style="color:var(--green)">✅ All 6 Well Zones Healthy:</strong> Pressures, flow column, and ESP motor are operating smoothly.`;
+      } else {
+        faultStrip.style.borderColor = 'rgba(239, 68, 68, 0.55)';
+        faultTxt.innerHTML = `<div style="color:#fda4af;font-weight:700;margin-bottom:3px;">⚠️ Where Things Are Going South (${issuesGoingSouth.length} Zone${issuesGoingSouth.length > 1 ? 's' : ''}):</div>` +
+          issuesGoingSouth.map(x => `<div style="margin-bottom:2px;">• ${x}</div>`).join('');
+      }
+
+      // State Badges
+      const stateBadge = document.getElementById('wellStateBadge');
+      const phaseBadge = document.getElementById('playheadPhaseBadge');
+      if (s.risk > 65 && s.cyber >= 60) {
+        stateBadge.textContent = 'Dual Alert!';
+        stateBadge.style.background = 'var(--red-soft)';
+        stateBadge.style.color = 'var(--red)';
+        phaseBadge.textContent = '🚨 DUAL FAULT + CYBER';
+        phaseBadge.style.background = 'var(--red-soft)';
+        phaseBadge.style.color = 'var(--red)';
+      } else if (s.cyber >= 60) {
+        stateBadge.textContent = 'Sensor Issue';
+        stateBadge.style.background = 'var(--purple-soft)';
+        stateBadge.style.color = 'var(--purple)';
+        phaseBadge.textContent = '🟣 SENSOR / CYBER ANOMALY';
+        phaseBadge.style.background = 'var(--purple-soft)';
+        phaseBadge.style.color = 'var(--purple)';
+      } else if (s.risk > 65) {
+        stateBadge.textContent = s.rpm < 100 ? 'Downtime' : 'Pre-Failure Wear';
+        stateBadge.style.background = 'var(--red-soft)';
+        stateBadge.style.color = 'var(--red)';
+        phaseBadge.textContent = '🔴 EQUIPMENT DEGRADATION';
+        phaseBadge.style.background = 'var(--red-soft)';
+        phaseBadge.style.color = 'var(--red)';
+      } else {
+        stateBadge.textContent = 'Normal';
+        stateBadge.style.background = 'var(--green-soft)';
+        stateBadge.style.color = 'var(--green)';
+        phaseBadge.textContent = '🟢 NORMAL OPERATION';
+        phaseBadge.style.background = 'var(--green-soft)';
+        phaseBadge.style.color = 'var(--green)';
+      }
+
+      // Update Layer 1 Card
+      const pdmColor = s.risk > 65 ? 'var(--red)' : (s.risk > 35 ? 'var(--amber)' : 'var(--green)');
+      const pdmText = s.risk > 65 ? 'High Failure Risk' : (s.risk > 35 ? 'Moderate Warning' : 'Low Risk (Healthy)');
+      document.getElementById('pdmScoreBig').textContent = `${s.risk.toFixed(0)}%`;
+      document.getElementById('pdmScoreBig').style.color = pdmColor;
+      document.getElementById('pdmCategoryBig').textContent = pdmText;
+      document.getElementById('pdmCategoryBig').style.color = pdmColor;
+
+      const reasons = [
+        { label: 'Pump Motor Current', reading: `${s.current.toFixed(1)} A (Normal: 58 A)`, pct: Math.min(100, Math.abs(s.current - 58) / 18 * 100) },
+        { label: 'Tubing Pressure (THP)', reading: `${s.thp.toFixed(0)} PSI (Normal: 280 PSI)`, pct: Math.min(100, Math.abs(s.thp - 280) / 55 * 100) },
+        { label: 'Gas Flow Rate', reading: `${s.gas_rate.toFixed(0)} MSCFD (Normal: 320)`, pct: Math.min(100, Math.abs(s.gas_rate - 320) / 85 * 100) }
+      ].sort((a, b) => b.pct - a.pct);
+
+      document.getElementById('pdmReasonsList').innerHTML = reasons.map(r => `
+        <div class="reason-item">
+          <div class="reason-top">
+            <strong>${r.label}</strong>
+            <span style="color:var(--text-secondary);font-family:var(--font-mono);font-size:0.78rem;">${r.reading}</span>
+          </div>
+          <div class="reason-bar-bg">
+            <div class="reason-bar-fill" style="width:${Math.max(6, r.pct)}%;background:${pdmColor};"></div>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('pdmActionBox').innerHTML = s.risk > 65
+        ? '<strong>Recommended Action:</strong> Schedule pump maintenance & verify sensor integrity before shut-in.'
+        : '<strong>Recommended Action:</strong> Equipment operating normally — continue standard monitoring.';
+
+      // Update Layer 2 Card
+      const isAnom = s.cyber >= 60;
+      const cybColor = isAnom ? 'var(--purple)' : 'var(--green)';
+      let anomName = 'Sensors Trusted';
+      if (isAnom) {
+        if (s.modbus !== 3) anomName = 'False-Data Injection (Modbus Spoof)';
+        else if (s.packet_loss > 20) anomName = 'Frozen Sensor Detected';
+        else if (Math.abs(s.thp - 280) > 100) anomName = 'Sudden Sensor Spike';
+        else if (s.chp - 150 > 28) anomName = 'Slow Sensor Drift';
+        else anomName = 'Physical Flow Inconsistency';
+      }
+
+      document.getElementById('cyberScoreBig').textContent = `${s.cyber.toFixed(0)}`;
+      document.getElementById('cyberScoreBig').style.color = cybColor;
+      document.getElementById('cyberStatusBig').textContent = anomName;
+      document.getElementById('cyberStatusBig').style.color = cybColor;
+
+      const checks = [
+        {
+          ok: s.packet_loss <= 20,
+          text: s.packet_loss <= 20 ? 'Sensor Updates: Active (Normal signal noise)' : `Sensor Freeze Alert: Tubing pressure stuck flatline (Packet loss ${s.packet_loss.toFixed(0)}%)`
+        },
+        {
+          ok: s.modbus === 3,
+          text: s.modbus === 3 ? 'SCADA Protocol: Normal Read Polling (Func 03)' : `Modbus Tampering: Unauthorized Write Command (Func ${s.modbus})!`
+        },
+        {
+          ok: !isAnom,
+          text: !isAnom ? 'Physics Cross-Check: Pressures match pump speed & flow' : 'Physics Cross-Check: Sensor readings violate wellbore pressure balance'
+        }
+      ];
+
+      document.getElementById('cyberChecksList').innerHTML = checks.map(c => `
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid var(--border);">
+          <span>${c.ok ? '✅' : '⚠️'}</span>
+          <span style="color:${c.ok ? '#cbd5e1' : '#f3e8ff'};font-weight:${c.ok ? '400' : '600'}">${c.text}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('cyberActionBox').innerHTML = isAnom
+        ? '<strong>Sensor Verdict:</strong> Do NOT trust the raw reading blindly — inspect sensor calibration, wiring, and RTU link.'
+        : '<strong>Sensor Verdict:</strong> Sensor measurements are reliable and physically consistent.';
+
+      const banner = document.getElementById('verdictBanner');
+      const vTitle = document.getElementById('verdictTitle');
+      const vDesc = document.getElementById('verdictDesc');
+
+      if (s.risk > 65 && isAnom) {
+        banner.className = 'verdict-banner verdict-crit';
+        vTitle.textContent = `🚨 CRITICAL WARNING: HIGH FAILURE RISK + ${anomName.toUpperCase()}`;
+        vDesc.textContent = 'Both AI layers triggered together (Scenario C). Verify sensor & instrument accuracy FIRST before acting on the failure prediction!';
+      } else if (isAnom) {
+        banner.className = 'verdict-banner verdict-cyber';
+        vTitle.textContent = `🟣 SENSOR / DATA INTEGRITY WARNING: ${anomName.toUpperCase()}`;
+        vDesc.textContent = 'The well pump is healthy, but a sensor or SCADA signal is abnormal (Scenario B). Check the instrument or RTU instead of stopping the well.';
+      } else if (s.risk > 65) {
+        banner.className = 'verdict-banner verdict-high';
+        vTitle.textContent = '🔴 HIGH EQUIPMENT FAILURE RISK (SCENARIO A)';
+        vDesc.textContent = 'Pump degradation detected (pressure & gas flow dropping while motor current rises). Sensors are verified trustworthy — schedule maintenance.';
+      } else {
+        banner.className = 'verdict-banner verdict-normal';
+        vTitle.textContent = '🟢 NORMAL WELL OPERATION';
+        vDesc.textContent = 'All well pressures, flow rates, and pump load are healthy, and all sensor readings are verified.';
+      }
+    }
+
+    function setPlaySpeed(mult, ms) {
+      playIntervalMs = ms;
+      document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById('spd_' + mult);
+      if (btn) btn.classList.add('active');
+      if (timer) {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          const max = winData.window.timestamps.length;
+          scrubTo((curStep + 1) % max);
+        }, playIntervalMs);
+      }
+    }
+
+    function togglePlay() {
+      const btn = document.getElementById('btnPlay');
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+        btn.classList.remove('playing');
+        btn.textContent = '▶ Play Live Timeline';
+      } else {
+        btn.classList.add('playing');
+        btn.textContent = '⏸ Pause Stream';
+        timer = setInterval(() => {
+          const max = winData.window.timestamps.length;
+          scrubTo((curStep + 1) % max);
+        }, playIntervalMs);
+      }
+    }
+
+    // =========================================================================
+    // TAB 2: INTERACTIVE CLICKABLE WELL ANATOMY & REPAIR SIMULATOR LOGIC
+    // =========================================================================
+    function onSliderMoved(partId) {
+      selectWellPart(partId, false);
+      updateLiveSimulator();
+    }
+
+    function setSimPreset(mode) {
+      const apply = (thp, chp, bhp, curr, gas, rpm, freeze, tamper, focusPart) => {
+        document.getElementById('simTHP').value = thp;
+        document.getElementById('simCHP').value = chp;
+        document.getElementById('simBHP').value = bhp;
+        document.getElementById('simCurr').value = curr;
+        document.getElementById('simGas').value = gas;
+        document.getElementById('simRPM').value = rpm;
+        document.getElementById('simFreeze').checked = freeze;
+        document.getElementById('simModbusTamper').checked = tamper;
+        selectedWellPart = focusPart;
+        updateLiveSimulator();
+      };
+      if (mode === 'normal') apply(280, 150, 1242, 58.0, 320, 3200, false, false, 'thp_choke');
+      else if (mode === 'wear') apply(225, 172, 1235, 76.5, 235, 3020, false, false, 'esp_pump');
+      else if (mode === 'freeze') apply(280, 168, 1242, 58.0, 320, 3200, true, false, 'scada_rtu');
+      else if (mode === 'both') apply(222, 174, 1232, 77.0, 232, 4380, false, true, 'scada_rtu');
+      else if (mode === 'fdi') apply(280, 150, 420, 58.0, 320, 3200, false, true, 'downhole_bhp');
+      else if (mode === 'spike') apply(485, 152, 1242, 58.0, 320, 3200, false, false, 'thp_choke');
+    }
+
+    function fixPart(partId) {
+      if (partId === 'thp_choke') {
+        document.getElementById('simTHP').value = 280;
+      } else if (partId === 'casing_annulus') {
+        document.getElementById('simCHP').value = 150;
+      } else if (partId === 'downhole_bhp') {
+        document.getElementById('simBHP').value = 1242;
+        document.getElementById('simModbusTamper').checked = false;
+      } else if (partId === 'esp_pump') {
+        document.getElementById('simCurr').value = 58.0;
+        document.getElementById('simRPM').value = 3200;
+      } else if (partId === 'tubing_flow') {
+        document.getElementById('simGas').value = 320;
+        document.getElementById('simTHP').value = 280;
+      } else if (partId === 'scada_rtu') {
+        document.getElementById('simFreeze').checked = false;
+        document.getElementById('simModbusTamper').checked = false;
+      }
+      updateLiveSimulator();
+    }
+
+    function styleSliderBox(boxId, pillId, valStr, state) {
+      const box = document.getElementById(boxId);
+      const pill = document.getElementById(pillId);
+      box.className = 'slider-box';
+      if (state === 'ok') {
+        pill.style.background = 'var(--green-soft)';
+        pill.style.color = 'var(--green)';
+        pill.textContent = `${valStr} • OK`;
+      } else if (state === 'high') {
+        box.classList.add('faulty-high');
+        pill.style.background = 'var(--red-soft)';
+        pill.style.color = 'var(--red)';
+        pill.textContent = `${valStr} • TOO HIGH ▲`;
+      } else if (state === 'low') {
+        box.classList.add('faulty-low');
+        pill.style.background = 'var(--amber-soft)';
+        pill.style.color = 'var(--amber)';
+        pill.textContent = `${valStr} • TOO LOW ▼`;
+      }
+    }
+
+    function evaluateAllParts(thp, chp, bhp, curr, gas, rpm, freeze, tamper) {
+      const diag = {};
+
+      const thpState = thp > 305 ? 'high' : (thp < 255 ? 'low' : 'ok');
+      styleSliderBox('boxSimTHP', 'pillSimTHP', `${thp} PSI`, thpState);
+      if (freeze) {
+        diag.thp_choke = {
+          status: 'cyber',
+          color: '#a855f7',
+          shortTag: '🟣 SENSOR FROZEN',
+          issue: `<strong>Tubing Pressure Sensor is Frozen at ${thp} PSI:</strong> The sensor reports zero signal variation while Casing Pressure (${chp} PSI) is changing. Inspect the pressure transmitter or RTU link.`
+        };
+      } else if (thpState === 'high') {
+        diag.thp_choke = {
+          status: 'bad',
+          color: '#ef4444',
+          shortTag: `🔴 HIGH (+${thp - 280} PSI)`,
+          issue: `<strong>Tubing Pressure is TOO HIGH (${thp} PSI vs 280 PSI normal):</strong> Indicates surface choke valve restriction, hydrate/wax plugging in the surface flowline, or a sudden pressure spike. Creates backpressure on the wellhead and ESP pump.`
+        };
+      } else if (thpState === 'low') {
+        diag.thp_choke = {
+          status: 'warn',
+          color: '#f59e0b',
+          shortTag: `⚠️ LOW (${thp - 280} PSI)`,
+          issue: `<strong>Tubing Pressure Dropped TOO LOW (${thp} PSI vs 280 PSI normal):</strong> The well is losing lifting head due to ESP pump stage wear, a tubing leak, or declining flow.`
+        };
+      } else {
+        diag.thp_choke = {
+          status: 'ok',
+          color: '#10b981',
+          shortTag: '● NORMAL',
+          issue: `<strong>Wellhead & Tubing Pressure are Healthy (${thp} PSI):</strong> Surface choke and flowline pressures are balanced within the normal 255–305 PSI operating window.`
+        };
+      }
+
+      const chpState = chp > 170 ? 'high' : (chp < 130 ? 'low' : 'ok');
+      styleSliderBox('boxSimCHP', 'pillSimCHP', `${chp} PSI`, chpState);
+      if (chpState === 'high') {
+        diag.casing_annulus = {
+          status: 'bad',
+          color: '#ef4444',
+          shortTag: `🔴 HIGH (+${chp - 150} PSI)`,
+          issue: `<strong>Casing Annulus Pressure is TOO HIGH (${chp} PSI vs 150 PSI normal):</strong> Indicates annulus gas migration/buildup behind the casing, a packer leak, or slow sensor drift bias (+${chp - 150} PSI).`
+        };
+      } else if (chpState === 'low') {
+        diag.casing_annulus = {
+          status: 'warn',
+          color: '#f59e0b',
+          shortTag: `⚠️ LOW (${chp - 150} PSI)`,
+          issue: `<strong>Casing Pressure is LOW (${chp} PSI):</strong> Annulus gas bled down or casing gauge is under-reading.`
+        };
+      } else {
+        diag.casing_annulus = {
+          status: 'ok',
+          color: '#10b981',
+          shortTag: '● NORMAL',
+          issue: `<strong>Casing & Annulus are Healthy (${chp} PSI):</strong> Zonal isolation and annular pressure are stable within the 130–170 PSI baseline.`
+        };
+      }
+
+      const mismatch = (Math.abs(thp - 280) > 45 && Math.abs(curr - 58) < 4 && Math.abs(rpm - 3200) < 150);
+      if (tamper || freeze) {
+        diag.scada_rtu = {
+          status: 'cyber',
+          color: '#a855f7',
+          shortTag: tamper ? '⚡ MODBUS SPOOFED' : '🟣 TELEMETRY FREEZE',
+          issue: tamper
+            ? `<strong>Cyber Spoofing Detected (Modbus Write Func 16):</strong> An unauthorized command is overwriting sensor registers on the SCADA link. Do NOT trust raw readings without field gauge verification!`
+            : `<strong>Telemetry Freeze Detected:</strong> Tubing sensor variance dropped to 0.001 PSI while other well parameters continue changing.`
+        };
+      } else if (mismatch) {
+        diag.scada_rtu = {
+          status: 'cyber',
+          color: '#a855f7',
+          shortTag: '🟣 PHYSICS MISMATCH',
+          issue: `<strong>Sensor / Physics Inconsistency:</strong> Pressure changed sharply (${thp} PSI) while pump speed (${rpm} RPM) and motor current (${curr} A) stayed flat. Likely a sensor spike, calibration error, or false-data injection.`
+        };
+      } else {
+        diag.scada_rtu = {
+          status: 'ok',
+          color: '#10b981',
+          shortTag: '● SENSORS VERIFIED',
+          issue: `<strong>SCADA & Sensor Telemetry Verified:</strong> Routine Modbus Read polling (Func 03) is active, sensors are updating normally, and pressure-to-flow physics match.`
+        };
+      }
+
+      const gasState = gas > 365 ? 'high' : (gas < 285 ? 'low' : 'ok');
+      styleSliderBox('boxSimGas', 'pillSimGas', `${gas} MSCFD`, gasState);
+      if (gasState === 'low') {
+        diag.tubing_flow = {
+          status: 'bad',
+          color: '#ef4444',
+          shortTag: `🔴 LOW FLOW (${gas} MSCFD)`,
+          issue: `<strong>Production Flow Rate Dropped (${gas} MSCFD vs 320 normal):</strong> Caused by declining ESP pump lift, scale buildup inside the production tubing, or a plugged pump intake screen.`
+        };
+      } else if (gasState === 'high') {
+        diag.tubing_flow = {
+          status: 'warn',
+          color: '#f59e0b',
+          shortTag: `⚠️ GAS SURGE (${gas} MSCFD)`,
+          issue: `<strong>Abnormally High Gas Flow (${gas} MSCFD):</strong> Free gas influx into the tubing column or pump overspeed. High free gas can cause the ESP pump to gas-lock.`
+        };
+      } else {
+        diag.tubing_flow = {
+          status: 'ok',
+          color: '#10b981',
+          shortTag: '● LIFT HEALTHY',
+          issue: `<strong>Tubing Flow Column is Healthy (${gas} MSCFD):</strong> Multiphase gas and water flow upward through the tubing string is steady.`
+        };
+      }
+
+      const currState = curr > 63.0 ? 'high' : (curr < 50.0 ? 'low' : 'ok');
+      const rpmState = rpm > 3500 ? 'high' : (rpm < 2900 ? 'low' : 'ok');
+      styleSliderBox('boxSimCurr', 'pillSimCurr', `${curr.toFixed(1)} A`, currState);
+      styleSliderBox('boxSimRPM', 'pillSimRPM', `${rpm} RPM`, rpmState);
+
+      if (currState === 'high' || rpmState === 'high') {
+        diag.esp_pump = {
+          status: 'bad',
+          color: '#ef4444',
+          shortTag: `🔴 OVERLOAD (${curr.toFixed(1)}A / ${rpm}RPM)`,
+          issue: `<strong>ESP Pump & Motor Overload (${curr.toFixed(1)} Amps, ${rpm} RPM):</strong> High motor current or overspeed indicates mechanical stage/bearing wear, high friction, or unauthorized VFD frequency tampering. High risk of motor burn-out!`
+        };
+      } else if (currState === 'low' || rpmState === 'low') {
+        diag.esp_pump = {
+          status: 'warn',
+          color: '#f59e0b',
+          shortTag: `⚠️ UNDERLOAD (${curr.toFixed(1)}A / ${rpm}RPM)`,
+          issue: `<strong>ESP Pump Under-Speed / Under-Load (${curr.toFixed(1)} Amps, ${rpm} RPM):</strong> Pump is losing speed or gas-locking, reducing fluid lift up the tubing.`
+        };
+      } else {
+        diag.esp_pump = {
+          status: 'ok',
+          color: '#10b981',
+          shortTag: '● MOTOR HEALTHY',
+          issue: `<strong>ESP Pump & Motor Healthy (${curr.toFixed(1)} Amps, ${rpm} RPM):</strong> Submersible pump torque, current draw, and rotational speed are right on baseline.`
+        };
+      }
+
+      const bhpState = bhp > 1310 ? 'high' : (bhp < 1160 ? 'low' : 'ok');
+      styleSliderBox('boxSimBHP', 'pillSimBHP', `${bhp} PSI`, bhpState);
+      if (bhp < 800 || (tamper && bhpState !== 'ok')) {
+        diag.downhole_bhp = {
+          status: 'cyber',
+          color: '#a855f7',
+          shortTag: `⚡ SPOOFED (${bhp} PSI)`,
+          issue: `<strong>Downhole BHP Reading is Spoofed / Physically Impossible (${bhp} PSI):</strong> A false low reading (~420 PSI) is being injected to trick operators into thinking the reservoir is depleted while surface pressures remain normal.`
+        };
+      } else if (bhpState === 'low') {
+        diag.downhole_bhp = {
+          status: 'warn',
+          color: '#f59e0b',
+          shortTag: `⚠️ LOW BHP (${bhp} PSI)`,
+          issue: `<strong>Downhole Pressure is Low (${bhp} PSI vs 1242 normal):</strong> High drawdown near the wellbore or declining reservoir pore pressure.`
+        };
+      } else if (bhpState === 'high') {
+        diag.downhole_bhp = {
+          status: 'bad',
+          color: '#ef4444',
+          shortTag: `🔴 HIGH BHP (${bhp} PSI)`,
+          issue: `<strong>Downhole Pressure is High (${bhp} PSI):</strong> Bottomhole pressure is building up due to reduced pump drawdown or a formation pressure kick.`
+        };
+      } else {
+        diag.downhole_bhp = {
+          status: 'ok',
+          color: '#10b981',
+          shortTag: '● NORMAL',
+          issue: `<strong>Downhole Gauge (BHP) is Normal (${bhp} PSI):</strong> Bottomhole flowing pressure matches reservoir inflow and ESP intake drawdown.`
+        };
+      }
+
+      return diag;
+    }
+
+    function selectWellPart(partId, refreshInspector = true) {
+      selectedWellPart = partId;
+      document.querySelectorAll('.well-part').forEach(el => el.classList.remove('selected-part'));
+      const svgGroup = document.getElementById('svgPart_' + partId);
+      if (svgGroup) svgGroup.classList.add('selected-part');
+
+      document.querySelectorAll('.part-pill-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById('btnPart_' + partId);
+      if (btn) btn.classList.add('active');
+
+      if (refreshInspector && currentPartDiagnostics[partId]) {
+        renderSelectedPartInspector(partId);
+      }
+    }
+
+    function renderSelectedPartInspector(partId) {
+      const info = WELL_PARTS_INFO[partId];
+      const d = currentPartDiagnostics[partId];
+      if (!info || !d) return;
+
+      document.getElementById('inspPartTitle').textContent = info.title;
+      const badge = document.getElementById('inspPartBadge');
+      const card = document.getElementById('selectedPartCard');
+      const fixBtn = document.getElementById('btnFixSelectedPart');
+
+      if (d.status === 'ok') {
+        badge.style.background = 'var(--green-soft)';
+        badge.style.color = 'var(--green)';
+        badge.textContent = '✅ HEALTHY';
+        card.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+        fixBtn.style.opacity = '0.55';
+        fixBtn.textContent = '✅ Part is Already Normal';
+      } else if (d.status === 'cyber') {
+        badge.style.background = 'var(--purple-soft)';
+        badge.style.color = 'var(--purple)';
+        badge.textContent = d.shortTag;
+        card.style.borderColor = 'var(--purple)';
+        fixBtn.style.opacity = '1';
+        fixBtn.textContent = '🔧 Fix & Restore Sensor / SCADA Link';
+      } else {
+        badge.style.background = d.status === 'bad' ? 'var(--red-soft)' : 'var(--amber-soft)';
+        badge.style.color = d.status === 'bad' ? 'var(--red)' : 'var(--amber)';
+        badge.textContent = d.shortTag;
+        card.style.borderColor = d.color;
+        fixBtn.style.opacity = '1';
+        fixBtn.textContent = '🔧 Fix This Part (Restore to Normal)';
+      }
+
+      document.getElementById('inspCurrentIssueBox').innerHTML = d.issue;
+      document.getElementById('inspIfHigh').textContent = info.ifHigh;
+      document.getElementById('inspIfLow').textContent = info.ifLow;
+
+      document.getElementById('inspConnectedChips').innerHTML = info.connected.map(c => {
+        const cd = currentPartDiagnostics[c.id];
+        const dotCol = cd ? cd.color : '#10b981';
+        return `<span class="impact-chip" onclick="selectWellPart('${c.id}')">
+          <span class="status-dot" style="background:${dotCol}"></span>${c.name}
+        </span>`;
+      }).join('');
+    }
+
+    async function updateLiveSimulator() {
+      const thp = parseFloat(document.getElementById('simTHP').value);
+      const chp = parseFloat(document.getElementById('simCHP').value);
+      const bhp = parseFloat(document.getElementById('simBHP').value);
+      const curr = parseFloat(document.getElementById('simCurr').value);
+      const gas = parseFloat(document.getElementById('simGas').value);
+      const rpm = parseFloat(document.getElementById('simRPM').value);
+      const freeze = document.getElementById('simFreeze').checked;
+      const tamper = document.getElementById('simModbusTamper').checked;
+      const waterRate = Math.round(gas * 2.65);
+
+      currentPartDiagnostics = evaluateAllParts(thp, chp, bhp, curr, gas, rpm, freeze, tamper);
+
+      document.getElementById('svgSimTHP').textContent = `${thp} PSI`;
+      document.getElementById('svgSimCHP').textContent = `${chp} PSI`;
+      document.getElementById('svgSimBHP').textContent = `${bhp} PSI`;
+      document.getElementById('svgSimFlow').textContent = `${gas} MSCFD • ${waterRate} BPD`;
+      document.getElementById('svgSimESP').textContent = `${curr.toFixed(1)} A • ${rpm} RPM`;
+      document.getElementById('svgSimScada').textContent = tamper ? 'FUNC 16 (SPOOF!)' : (freeze ? 'FROZEN LINK' : 'FUNC 03 (READ)');
+
+      const partKeys = ['thp_choke', 'casing_annulus', 'scada_rtu', 'tubing_flow', 'esp_pump', 'downhole_bhp'];
+      const statusTextIds = {
+        thp_choke: 'svgSimTHPStatus',
+        casing_annulus: 'svgSimCHPStatus',
+        scada_rtu: 'svgSimScadaStatus',
+        tubing_flow: 'svgSimFlowStatus',
+        esp_pump: 'svgSimESPStatus',
+        downhole_bhp: 'svgSimBHPStatus'
+      };
+
+      let faultyCount = 0;
+      partKeys.forEach(pk => {
+        const d = currentPartDiagnostics[pk];
+        if (d.status !== 'ok') faultyCount++;
+
+        const tagRect = document.getElementById('tag_' + pk);
+        if (tagRect) tagRect.setAttribute('stroke', d.color);
+
+        const shapeEl = document.getElementById('shape_' + pk);
+        if (shapeEl) shapeEl.setAttribute('stroke', d.color);
+
+        const stTxt = document.getElementById(statusTextIds[pk]);
+        if (stTxt) {
+          stTxt.textContent = d.shortTag;
+          stTxt.setAttribute('fill', d.color);
+        }
+
+        const dotEl = document.getElementById('dot_' + pk);
+        if (dotEl) dotEl.style.background = d.color;
+      });
+
+      const countBadge = document.getElementById('faultyPartsCountBadge');
+      if (faultyCount === 0) {
+        countBadge.style.background = 'var(--green-soft)';
+        countBadge.style.color = 'var(--green)';
+        countBadge.textContent = '✅ All 6 Parts Healthy';
+      } else {
+        countBadge.style.background = 'var(--red-soft)';
+        countBadge.style.color = 'var(--red)';
+        countBadge.textContent = `⚠️ ${faultyCount} Part${faultyCount > 1 ? 's' : ''} Affected — Click to Fix`;
+      }
+
+      selectWellPart(selectedWellPart, true);
+
+      const res = await fetch('/api/simulate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          thp, chp, bhp, current: curr, gas_rate: gas, rpm,
+          temp: curr > 65 ? 196.0 : 185.0,
+          water_rate: waterRate,
+          choke: 80.0,
+          modbus: tamper ? 16 : 3,
+          freeze
+        })
+      });
+      const out = await res.json();
+
+      const riskColor = out.failure_risk > 65 ? 'var(--red)' : (out.failure_risk > 30 ? 'var(--amber)' : 'var(--green)');
+      document.getElementById('simOutRisk').textContent = `${out.failure_risk.toFixed(1)}%`;
+      document.getElementById('simOutRisk').style.color = riskColor;
+      document.getElementById('simOutRiskCat').textContent = `${out.risk_category} Failure Risk`;
+
+      const cybColor = out.cyber_score >= 60 ? 'var(--purple)' : (out.cyber_score >= 30 ? 'var(--amber)' : 'var(--green)');
+      document.getElementById('simOutCyber').textContent = `${out.cyber_score.toFixed(1)} / 100`;
+      document.getElementById('simOutCyber').style.color = cybColor;
+      document.getElementById('simOutCyberCat').textContent = out.detected_anomaly_type.replace(/_/g, ' ');
+
+      const b = document.getElementById('simVerdictBanner');
+      const t = document.getElementById('simVerdictTitle');
+      const d = document.getElementById('simVerdictDesc');
+
+      if (out.alert_level === 'Critical operational warning') {
+        b.className = 'verdict-banner verdict-crit';
+        t.textContent = '🚨 CRITICAL WARNING: FAILURE RISK + SENSOR ANOMALY';
+        d.textContent = 'Both equipment degradation and sensor tampering are active! Fix the SCADA/sensor issue first.';
+      } else if (out.alert_level === 'Measurement anomaly') {
+        b.className = 'verdict-banner verdict-cyber';
+        t.textContent = `🟣 SENSOR / CYBER ANOMALY (${out.detected_anomaly_type.replace(/_/g, ' ')})`;
+        d.textContent = 'Unusual sensor reading or physics mismatch detected. Click the highlighted part on the diagram to inspect & fix.';
+      } else if (out.alert_level === 'High failure risk') {
+        b.className = 'verdict-banner verdict-high';
+        t.textContent = '🔴 HIGH EQUIPMENT FAILURE RISK';
+        d.textContent = 'Mechanical stress detected on the well. Click the red components on the diagram to see what is wrong and fix them.';
+      } else if (out.failure_risk > 25 || out.cyber_score > 25 || faultyCount > 0) {
+        b.className = 'verdict-banner verdict-maint';
+        t.textContent = `🟡 PARAMETER DEVIATION (${faultyCount} PART${faultyCount > 1 ? 'S' : ''} AFFECTED)`;
+        d.textContent = 'One or more well parameters moved outside normal range. Click the highlighted part on the diagram to inspect & fix.';
+      } else {
+        b.className = 'verdict-banner verdict-normal';
+        t.textContent = '🟢 NORMAL OPERATION';
+        d.textContent = 'All 6 well components and sensor streams are within safe operating limits.';
+      }
+    }
+
+    function updateCaseOisd() {
+      const items = [];
+      if (document.getElementById('csGto').checked) items.push('Gas influxes observed in drilling & offset-well records (conflicts with oil-only plan).');
+      if (document.getElementById('csCbl').checked) items.push('Cement bond log (CBL-VDL) requires engineering barrier verification.');
+      if (document.getElementById('csFluid').checked) items.push('Lighter completion fluid reduces hydrostatic pressure (Ph = ρgh) — underbalance risk.');
+      if (document.getElementById('csBop').checked) items.push('BOP stack missing shear ram to cut wireline in an emergency.');
+      if (document.getElementById('csTrip').checked) items.push('Trip tank isolated — active well-volume monitoring is offline.');
+
+      const box = document.getElementById('csOisdResultBox');
+      if (items.length > 0) {
+        box.innerHTML = `
+          <div style="background:var(--red-soft);border:1px solid var(--red);padding:14px;border-radius:10px;margin-bottom:14px;">
+            <strong style="color:#fff;font-size:0.95rem;">🚨 WELL STATUS: HIGH OPERATIONAL RISK — STOP & REVIEW</strong>
+            <div style="font-size:0.82rem;color:#fecaca;margin-top:3px;">${items.length} pre-perforation safety checks require engineering verification:</div>
+          </div>
+          <ul style="padding-left:18px;font-size:0.86rem;line-height:1.7;color:#e2e8f0;">
+            ${items.map(i => `<li>${i}</li>`).join('')}
+          </ul>
+        `;
+      } else {
+        box.innerHTML = `
+          <div style="background:var(--green-soft);border:1px solid var(--green);padding:16px;border-radius:10px;">
+            <strong style="color:#fff;font-size:0.95rem;">🟢 ALL PRE-PERFORATION CHECKS VERIFIED</strong>
+            <div style="font-size:0.84rem;color:#a7f3d0;margin-top:4px;">Hydrostatic overbalance, cement bond, BOP shear ram, and trip-tank monitoring are all confirmed ready.</div>
+          </div>
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', boot);
+  </script>
+</body>
+</html>
