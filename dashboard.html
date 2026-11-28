@@ -618,9 +618,125 @@
       flex-shrink: 0;
     }
 
+    /* Incident Replay Lab (Tab 3) */
+    .case-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .case-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 15px 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .case-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .case-card.active {
+      background: rgba(30, 41, 59, 0.78);
+      border-color: var(--blue);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+    }
+    .case-disclaimer {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.38);
+      color: #fde68a;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 0.77rem;
+      margin-bottom: 16px;
+    }
+    .case-lab-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr 380px;
+      gap: 16px;
+      margin-bottom: 18px;
+      align-items: start;
+    }
+    .case-tiles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .case-tile {
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+    .case-tile-lbl {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+    .case-tile-val {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-top: 2px;
+      color: #fff;
+    }
+    .fix-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 11px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .fix-item:hover { border-color: var(--border-hover); }
+    .fix-item input {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      accent-color: var(--green);
+      flex-shrink: 0;
+    }
+    .case-event-log {
+      max-height: 225px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+    .case-ev {
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .case-ev-time {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .case-outcome-card {
+      border-radius: 12px;
+      padding: 13px 15px;
+      border: 1.5px solid;
+      margin-bottom: 14px;
+      display: none;
+    }
+    .case-outcome-danger { background: var(--red-soft); border-color: rgba(239, 68, 68, 0.55); }
+    .case-outcome-warn { background: var(--amber-soft); border-color: rgba(245, 158, 11, 0.55); }
+    .case-outcome-success { background: var(--green-soft); border-color: rgba(16, 185, 129, 0.55); }
+
     @media (max-width: 1220px) {
-      .sim-layout, .main-grid { grid-template-columns: 1fr; }
-      .scenario-cards { grid-template-columns: 1fr 1fr; }
+      .sim-layout, .main-grid, .case-lab-grid { grid-template-columns: 1fr; }
+      .scenario-cards, .case-cards { grid-template-columns: 1fr 1fr; }
+      .case-tiles { grid-template-columns: repeat(2, 1fr); }
       .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
@@ -640,7 +756,7 @@
     <div class="nav-tabs">
       <button class="nav-tab active" id="topTab1" onclick="showTab('tab-monitor', this)">1. Live Well Monitor</button>
       <button class="nav-tab" id="topTab2" onclick="showTab('tab-simulator', this)">2. Interactive Simulator</button>
-      <button class="nav-tab" id="topTab3" onclick="showTab('tab-cases', this)">3. Real-World Case Studies</button>
+      <button class="nav-tab" id="topTab3" onclick="showTab('tab-cases', this)">3. Incident Replay (Case Studies)</button>
       <button class="nav-tab" id="topTab4" onclick="showTab('tab-models', this)">4. ML Model Results</button>
     </div>
   </nav>
@@ -1165,64 +1281,135 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- TAB 3: REAL-WORLD CASE STUDIES (OISD, BOLLSTA, OIL INDIA)           -->
+    <!-- TAB 3: INCIDENT REPLAY LAB (3 REAL-WORLD CASE STUDIES)              -->
     <!-- =================================================================== -->
     <section class="page-view" id="tab-cases">
       <div class="section-label">
-        <span>How Our Dashboard Maps to the 3 Real-Life Oil & Gas Incidents in Your Report</span>
+        <span>Incident Replay Lab — watch what happened, then switch on the fixes to see how it could have been prevented</span>
       </div>
 
-      <div class="card" style="margin-bottom:20px;">
-        <div class="card-header">
-          <div>
-            <span class="badge" style="background:var(--red-soft);color:var(--red);margin-bottom:6px;display:inline-block;">Main Case Study • OISD (Feb 2026)</span>
-            <h2 style="font-size:1.15rem;font-weight:700;">Case Study 2: Gas Blowout at Onshore Workover Rig, India</h2>
-          </div>
+      <!-- 3 Case Selection Cards -->
+      <div class="case-cards">
+        <div class="case-card active" id="case_card_oisd" onclick="selectCase('oisd')">
+          <span class="scen-tag" style="background:var(--red-soft);color:var(--red);">Main case</span>
+          <h3 style="font-size:0.98rem;font-weight:700;margin-bottom:4px;color:#fff;">OISD Workover Rig Blowout (2026)</h3>
+          <p style="font-size:0.79rem;color:var(--text-secondary);">Onshore India gas blowout after perforation — lighter fluid, poor CBL, no shear ram, isolated trip tank.</p>
         </div>
+        <div class="case-card" id="case_card_bollsta" onclick="selectCase('bollsta')">
+          <span class="scen-tag" style="background:var(--purple-soft);color:var(--purple);">Calibration & ΔP</span>
+          <h3 style="font-size:0.98rem;font-weight:700;margin-bottom:4px;color:#fff;">Equinor Deepsea Bollsta (2025)</h3>
+          <p style="font-size:0.79rem;color:var(--text-secondary);">Offshore Norway P&A casing cut released ~930 kg gas — outer barrier failure & uncalibrated logs/ΔP.</p>
+        </div>
+        <div class="case-card" id="case_card_oil_idbh" onclick="selectCase('oil_idbh')">
+          <span class="scen-tag" style="background:var(--amber-soft);color:var(--amber);">Surface extension</span>
+          <h3 style="font-size:0.98rem;font-weight:700;margin-bottom:4px;color:#fff;">Oil India Tank Farm Fire (2026)</h3>
+          <p style="font-size:0.79rem;color:var(--text-secondary);">Assam Indirect Bath Heater fire during maintenance — hypothetical replay of passing isolation & vapour buildup.</p>
+        </div>
+      </div>
 
-        <div class="grid-2" style="margin-bottom:0;">
-          <div>
-            <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:14px;">
-              <strong>What Happened:</strong> Uncontrolled gas flow occurred right after perforation. The BOP blind ram could not close because the wireline cable was inside the well and <strong>no shear ram was installed</strong>. Uncheck the boxes below to see how pre-operation verification clears the warnings:
-            </p>
+      <!-- Honesty / Illustrative Disclaimer -->
+      <div class="case-disclaimer" id="caseDisclaimer"></div>
 
-            <label class="check-row"><input type="checkbox" id="csGto" checked onchange="updateCaseOisd()"/> <span><strong>1. Conflicting Geological Data:</strong> Offset well & drilling showed gas, but plan assumed oil-only</span></label>
-            <label class="check-row"><input type="checkbox" id="csCbl" checked onchange="updateCaseOisd()"/> <span><strong>2. Poor Cement Bond (CBL-VDL):</strong> Weak cement isolation behind casing</span></label>
-            <label class="check-row"><input type="checkbox" id="csFluid" checked onchange="updateCaseOisd()"/> <span><strong>3. Lighter Completion Fluid:</strong> Reduced hydrostatic pressure (Ph = ρgh) below safe margin</span></label>
-            <label class="check-row"><input type="checkbox" id="csBop" checked onchange="updateCaseOisd()"/> <span><strong>4. Missing BOP Shear Ram:</strong> Cannot cut wireline to seal the well</span></label>
-            <label class="check-row"><input type="checkbox" id="csTrip" checked onchange="updateCaseOisd()"/> <span><strong>5. Trip Tank Isolated:</strong> Lost ability to track well fluid volume changes</span></label>
+      <!-- 3-Column Incident Replay Lab Grid: 360px | 1fr | 380px -->
+      <div class="case-lab-grid">
+
+        <!-- Left Card: Facts + Preset Buttons + Fix Toggles -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📋 Incident Facts & Prevention Toggles</div>
           </div>
 
-          <div style="background:#0b0f19;padding:20px;border-radius:14px;border:1px solid var(--border);">
-            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;color:var(--text-secondary);margin-bottom:10px;">
-              Dashboard Pre-Perforation Readiness Output:
+          <div id="caseFacts" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:14px;"></div>
+
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <button class="Preset-btn" style="flex:1;text-align:center;" onclick="applyCasePreset('as_happened')">⏪ As it happened</button>
+            <button class="fix-all-btn" style="flex:1;" onclick="applyCasePreset('all_fixes')">✅ Apply all fixes</button>
+          </div>
+
+          <div id="caseFluidSgWrap" class="slider-box" style="display:none;margin-bottom:10px;">
+            <div class="slider-head">
+              <strong>Completion fluid SG</strong>
+              <span class="slider-state-pill" id="caseFluidSgLabel" style="background:var(--blue-soft);color:var(--blue);">1.02 SG (3192 psi)</span>
             </div>
-            <div id="csOisdResultBox"></div>
+            <input type="range" id="caseFluidSg" min="0.95" max="1.30" step="0.01" value="1.02" oninput="onFluidSgInput(this.value)" />
+          </div>
+
+          <div style="font-size:0.74rem;font-weight:700;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px;">
+            Toggle Engineering & AI Fixes:
+          </div>
+          <div id="caseFixList"></div>
+        </div>
+
+        <!-- Center Card: Animated Schematic + 4 Tiles + Playback Controls -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title" id="caseSchematicTitle">🎬 Live Physics Replay</div>
+            <span class="badge" id="caseLiveBadge" style="background:var(--blue-soft);color:var(--blue);">Ready</span>
+          </div>
+
+          <div id="caseSchematic" style="background:#070b14;border-radius:12px;border:1px solid var(--border);padding:8px;"></div>
+
+          <div class="case-tiles" id="caseTiles"></div>
+
+          <div class="playback-controls-box" style="margin-bottom:0;">
+            <div class="playback-top-row" style="margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <button class="btn-play" id="casePlayBtn" onclick="toggleCasePlay()">▶ Play</button>
+                <button class="speed-btn" id="caseSpd_1" onclick="setCaseSpeed(1, 200)">1x</button>
+                <button class="speed-btn active" id="caseSpd_3" onclick="setCaseSpeed(3, 70)">3x</button>
+                <button class="speed-btn" id="caseSpd_8" onclick="setCaseSpeed(8, 25)">8x</button>
+                <button class="speed-btn" onclick="restartCase()">⏮ Restart</button>
+                <button class="speed-btn" onclick="skipCaseToEnd()">⏭ Skip to end</button>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--blue);" id="caseTimeLabel">T+0 min</div>
+            </div>
+            <input type="range" id="caseSlider" min="0" max="150" value="0" oninput="renderCaseFrame(parseInt(this.value, 10))" />
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-secondary);margin-top:4px;">
+              <span>Phase: <strong id="casePhaseLabel" style="color:#fff">-</strong></span>
+              <span style="color:var(--text-muted)">Click chart or drag slider</span>
+            </div>
           </div>
         </div>
+
+        <!-- Right Card: Live Event Log + Outcome + As-Happened vs With-Fixes Compare -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📜 Live Event Log & Comparison</div>
+          </div>
+
+          <div class="case-event-log" id="caseEventLog"></div>
+
+          <div class="case-outcome-card" id="caseOutcomeCard">
+            <div id="caseOutcomeHeadline" style="font-weight:800;font-size:0.95rem;margin-bottom:4px;"></div>
+            <div id="caseOutcomeDetail" style="font-size:0.8rem;color:#e2e8f0;margin-bottom:8px;"></div>
+            <div id="caseOutcomeMetrics" style="font-size:0.76rem;display:grid;grid-template-columns:1fr 1fr;gap:6px;"></div>
+          </div>
+
+          <div style="font-size:0.74rem;font-weight:700;text-transform:uppercase;color:var(--text-secondary);margin-bottom:6px;">
+            As it happened vs With your fixes
+          </div>
+          <table class="clean-table" id="caseCompareTable" style="font-size:0.78rem;">
+            <thead>
+              <tr>
+                <th style="padding:7px 8px;">Metric</th>
+                <th style="padding:7px 8px;">As it happened</th>
+                <th style="padding:7px 8px;">With your fixes</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
       </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <span class="badge" style="background:var(--purple-soft);color:var(--purple);margin-bottom:8px;display:inline-block;">Case Study 3 • Equinor Norway (2025)</span>
-          <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;">Deepsea Bollsta Well-Control Incident</h3>
-          <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:12px;">
-            <strong>What Went Wrong:</strong> During casing cutting (P&A), 930 kg of gas released onto the rig because the outer barrier failed, <strong>logging equipment was poorly calibrated</strong>, and <strong>differential-pressure (ΔP) data were not used</strong>.
-          </p>
-          <div class="action-box" style="border-left-color:var(--purple);">
-            <strong>How Our Dashboard Helps:</strong> Continuously trends Differential Pressure ($\Delta P = P_1 - P_2$), flags inconsistent pressure relationships, and alerts when gauge/logging calibration is overdue.
-          </div>
+      <!-- Bottom Card: Time-Series Replay Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📈 Reconstructed Time-Series Replay</div>
+          <span style="font-size:0.78rem;color:var(--text-secondary);">Click anywhere on the chart to jump to that minute/hour</span>
         </div>
-
-        <div class="card">
-          <span class="badge" style="background:var(--amber-soft);color:var(--amber);margin-bottom:8px;display:inline-block;">Case Study 1 • Oil India Assam (Nov 2026)</span>
-          <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;">Intermediate Tank Farm Heater Fire</h3>
-          <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:12px;">
-            <strong>What Went Wrong:</strong> A major fire broke out during maintenance on an Indirect Bath Heater (IDBH) that had been isolated for two days.
-          </p>
-          <div class="action-box" style="border-left-color:var(--amber);">
-            <strong>How Our Dashboard Helps:</strong> Extends monitoring to surface equipment (heater temperature, inlet/outlet pressure, pump vibration, and frozen-sensor checks) alongside physical isolation (LOTO) and permit-to-work barriers.
-          </div>
+        <div style="height:280px;width:100%;">
+          <canvas id="caseChart"></canvas>
         </div>
       </div>
     </section>
@@ -1294,15 +1481,31 @@
     let monRotorAngle = 0;
     let monFlowOffset = 0;
 
+    // Incident Replay Lab Globals
+    let caseMeta = null;
+    let caseAsHappened = null;
+    let caseAllFixes = null;
+    let caseId = 'oisd';
+    let caseParams = {};
+    let caseResult = null;
+    let caseBaseline = {};
+    let caseStep = 0;
+    let caseTimer = null;
+    let caseIntervalMs = 70;
+    let caseChart = null;
+
     // Custom Chart.js Plugin to Draw Glowing Vertical Playhead Line + Active Dots
     const verticalPlayheadPlugin = {
       id: 'verticalPlayhead',
       afterDraw(chart) {
-        if (!chart.scales.x || curStep == null) return;
+        const step = chart.canvas.id === 'mainTrendChart'
+          ? curStep
+          : (chart.canvas.id === 'caseChart' ? caseStep : null);
+        if (!chart.scales.x || step == null) return;
         const meta = chart.getDatasetMeta(0);
-        if (!meta || !meta.data || !meta.data[curStep]) return;
+        if (!meta || !meta.data || !meta.data[step]) return;
 
-        const xPos = meta.data[curStep].x;
+        const xPos = meta.data[step].x;
         const topY = chart.scales.y.top;
         const bottomY = chart.scales.y.bottom;
         const ctx = chart.ctx;
@@ -1318,11 +1521,11 @@
         ctx.shadowBlur = 10;
         ctx.stroke();
 
-        // Draw glowing circles on each dataset at curStep
+        // Draw glowing circles on each dataset at step
         chart.data.datasets.forEach((ds, dsIdx) => {
           const m = chart.getDatasetMeta(dsIdx);
-          if (m && m.data && m.data[curStep]) {
-            const pt = m.data[curStep];
+          if (m && m.data && m.data[step]) {
+            const pt = m.data[step];
             ctx.beginPath();
             ctx.arc(pt.x, pt.y, 5.5, 0, Math.PI * 2);
             ctx.fillStyle = ds.borderColor || '#fff';
@@ -1424,7 +1627,7 @@
       fillModelTables(initData.eval_summary);
       createMainChart();
       await selectScenario('scenario_a');
-      updateCaseOisd();
+      await loadCaseStudies();
       await updateLiveSimulator();
       requestAnimationFrame(animateLiveMonitorWell);
     }
@@ -2329,33 +2532,569 @@
       }
     }
 
-    function updateCaseOisd() {
-      const items = [];
-      if (document.getElementById('csGto').checked) items.push('Gas influxes observed in drilling & offset-well records (conflicts with oil-only plan).');
-      if (document.getElementById('csCbl').checked) items.push('Cement bond log (CBL-VDL) requires engineering barrier verification.');
-      if (document.getElementById('csFluid').checked) items.push('Lighter completion fluid reduces hydrostatic pressure (Ph = ρgh) — underbalance risk.');
-      if (document.getElementById('csBop').checked) items.push('BOP stack missing shear ram to cut wireline in an emergency.');
-      if (document.getElementById('csTrip').checked) items.push('Trip tank isolated — active well-volume monitoring is offline.');
+    // =========================================================================
+    // TAB 3: INCIDENT REPLAY LAB (3 CASE STUDIES)
+    // =========================================================================
+    async function loadCaseStudies() {
+      const res = await fetch('/api/cases');
+      const data = await res.json();
+      caseMeta = data.meta;
+      caseAsHappened = data.as_happened;
+      caseAllFixes = data.all_fixes;
+      await selectCase('oisd');
+    }
 
-      const box = document.getElementById('csOisdResultBox');
-      if (items.length > 0) {
-        box.innerHTML = `
-          <div style="background:var(--red-soft);border:1px solid var(--red);padding:14px;border-radius:10px;margin-bottom:14px;">
-            <strong style="color:#fff;font-size:0.95rem;">🚨 WELL STATUS: HIGH OPERATIONAL RISK — STOP & REVIEW</strong>
-            <div style="font-size:0.82rem;color:#fecaca;margin-top:3px;">${items.length} pre-perforation safety checks require engineering verification:</div>
-          </div>
-          <ul style="padding-left:18px;font-size:0.86rem;line-height:1.7;color:#e2e8f0;">
-            ${items.map(i => `<li>${i}</li>`).join('')}
-          </ul>
+    async function selectCase(id) {
+      if (caseTimer) {
+        clearInterval(caseTimer);
+        caseTimer = null;
+        const pb = document.getElementById('casePlayBtn');
+        if (pb) {
+          pb.classList.remove('playing');
+          pb.textContent = '▶ Play';
+        }
+      }
+      caseId = id;
+      document.querySelectorAll('.case-card').forEach(c => c.classList.remove('active'));
+      const card = document.getElementById('case_card_' + id);
+      if (card) card.classList.add('active');
+
+      const m = caseMeta[id];
+      document.getElementById('caseDisclaimer').innerHTML = `⚠️ <strong>Research & Illustrative Note:</strong> ${m.disclaimer}`;
+      document.getElementById('caseSchematicTitle').textContent = `🎬 ${m.short} — Live Replay`;
+
+      document.getElementById('caseFacts').innerHTML = `
+        <div style="margin-bottom:6px;">
+          <strong style="color:#fff;">Date:</strong> ${m.date}<br/>
+          <strong style="color:#fff;">Location:</strong> ${m.location}<br/>
+          <strong style="color:#fff;">Source:</strong> ${m.source}
+        </div>
+        <div style="margin-bottom:8px;color:#cbd5e1;">${m.summary}</div>
+        <strong style="color:#fda4af;font-size:0.75rem;text-transform:uppercase;">What went wrong:</strong>
+        <ul style="padding-left:16px;margin-top:4px;line-height:1.45;">
+          ${m.what_went_wrong.map(w => `<li>${w}</li>`).join('')}
+        </ul>
+      `;
+
+      // Completion fluid SG slider only for OISD
+      const sgWrap = document.getElementById('caseFluidSgWrap');
+      sgWrap.style.display = id === 'oisd' ? 'block' : 'none';
+
+      // Render fix checkboxes
+      caseParams = Object.assign({}, caseAsHappened[id]);
+      renderFixControls();
+      renderCaseSchematic(id);
+
+      // Fetch baseline ("As it happened") once per case
+      if (!caseBaseline[id]) {
+        const rb = await fetch('/api/case_sim', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ case_id: id, params: caseAsHappened[id] })
+        });
+        caseBaseline[id] = await rb.json();
+      }
+
+      caseStep = 0;
+      await runCaseSim(true);
+    }
+
+    function renderFixControls() {
+      const m = caseMeta[caseId];
+      const listEl = document.getElementById('caseFixList');
+      listEl.innerHTML = m.fixes.map(fx => {
+        const checked = !!caseParams[fx.key];
+        return `
+          <label class="fix-item">
+            <input type="checkbox" id="cfix_${fx.key}" ${checked ? 'checked' : ''} onchange="onCaseFixChange('${fx.key}', this.checked)" />
+            <div>
+              <div style="font-size:0.81rem;font-weight:700;color:#fff;">${fx.label}</div>
+              <div style="font-size:0.72rem;color:var(--text-secondary);margin-top:2px;">${fx.why}</div>
+            </div>
+          </label>
+        `;
+      }).join('');
+
+      if (caseId === 'oisd') {
+        const sgVal = parseFloat(caseParams.fluid_sg || 1.02);
+        document.getElementById('caseFluidSg').value = sgVal;
+        updateFluidSgLabel(sgVal);
+      }
+    }
+
+    function updateFluidSgLabel(sgVal) {
+      const ph = sgVal * 1000 * 9.81 * 2200 / 6894.76;
+      document.getElementById('caseFluidSgLabel').textContent = `${sgVal.toFixed(2)} SG (${ph.toFixed(0)} psi)`;
+    }
+
+    function onFluidSgInput(val) {
+      const sg = parseFloat(val);
+      caseParams.fluid_sg = sg;
+      updateFluidSgLabel(sg);
+      runCaseSim(false);
+    }
+
+    function onCaseFixChange(key, isChecked) {
+      caseParams[key] = isChecked;
+      if (caseId === 'oisd' && key === 'fix_pore_estimate') {
+        const targetSg = isChecked ? 1.15 : 1.02;
+        caseParams.fluid_sg = targetSg;
+        document.getElementById('caseFluidSg').value = targetSg;
+        updateFluidSgLabel(targetSg);
+      }
+      runCaseSim(false);
+    }
+
+    function applyCasePreset(mode) {
+      caseParams = Object.assign({}, mode === 'all_fixes' ? caseAllFixes[caseId] : caseAsHappened[caseId]);
+      renderFixControls();
+      runCaseSim(false);
+    }
+
+    async function runCaseSim(resetToZero) {
+      const res = await fetch('/api/case_sim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ case_id: caseId, params: caseParams })
+      });
+      caseResult = await res.json();
+
+      const maxIdx = caseResult.t.length - 1;
+      const slider = document.getElementById('caseSlider');
+      slider.max = maxIdx;
+      if (resetToZero) caseStep = 0;
+      else caseStep = Math.min(caseStep, maxIdx);
+      slider.value = caseStep;
+
+      renderCaseChart();
+      renderCompareTable();
+      renderCaseFrame(caseStep);
+    }
+
+    function renderCaseSchematic(id) {
+      const host = document.getElementById('caseSchematic');
+      if (id === 'oisd') {
+        host.innerHTML = `
+          <svg viewBox="0 0 340 420" width="100%" height="340" style="display:block;">
+            <rect x="0" y="95" width="340" height="325" fill="#0b1120"/>
+            <line x1="0" y1="95" x2="340" y2="95" stroke="#334155" stroke-width="2" stroke-dasharray="5,4"/>
+            <text x="10" y="88" fill="#64748b" font-size="8.5" font-weight="700">SURFACE RIG FLOOR</text>
+
+            <!-- Gas Cloud at surface -->
+            <ellipse id="oisdGasCloud" cx="155" cy="42" rx="95" ry="34" fill="rgba(239,68,68,0.65)" opacity="0"/>
+
+            <!-- Casing & Completion Fluid -->
+            <rect x="115" y="95" width="80" height="295" fill="#0f172a" stroke="#475569" stroke-width="2.5"/>
+            <rect id="oisdFluid" x="119" y="100" width="72" height="286" fill="rgba(56,189,248,0.24)"/>
+
+            <!-- Wireline & Perforating Gun -->
+            <line id="oisdWireline" x1="155" y1="22" x2="155" y2="338" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="4,2"/>
+            <rect id="oisdGun" x="148" y="335" width="14" height="34" rx="3" fill="#f59e0b" stroke="#fff" stroke-width="1"/>
+            <polygon id="oisdPerfFlash" points="118,352 145,345 145,359 118,352 192,352 165,345 165,359" fill="#fbbf24" opacity="0"/>
+
+            <!-- Rising Gas Kick Bubbles -->
+            <circle id="oisdBub0" cx="140" cy="320" r="6" fill="#ef4444" opacity="0"/>
+            <circle id="oisdBub1" cx="168" cy="285" r="7" fill="#ef4444" opacity="0"/>
+            <circle id="oisdBub2" cx="136" cy="245" r="8" fill="#ef4444" opacity="0"/>
+            <circle id="oisdBub3" cx="170" cy="205" r="8" fill="#ef4444" opacity="0"/>
+            <circle id="oisdBub4" cx="142" cy="160" r="9" fill="#ef4444" opacity="0"/>
+            <circle id="oisdBub5" cx="166" cy="120" r="10" fill="#ef4444" opacity="0"/>
+
+            <!-- BOP Stack -->
+            <rect id="oisdBop" x="108" y="42" width="94" height="42" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="2.5"/>
+            <text x="155" y="58" text-anchor="middle" fill="#fff" font-size="8.5" font-weight="700">BOP STACK</text>
+            <text id="oisdBopTxt" x="155" y="74" text-anchor="middle" fill="#cbd5e1" font-family="JetBrains Mono" font-size="8.5" font-weight="700">OPEN</text>
+
+            <!-- Trip Tank Callout -->
+            <rect id="oisdTripBox" x="214" y="112" width="118" height="58" rx="8" fill="#111827" stroke="#a855f7" stroke-width="2"/>
+            <text x="222" y="128" fill="#94a3b8" font-size="8.5" font-weight="700">TRIP TANK MONITOR</text>
+            <text id="oisdTripTxt" x="222" y="150" fill="#fff" font-family="JetBrains Mono" font-size="9.5" font-weight="700">ISOLATED</text>
+
+            <!-- Casing Pressure Callout -->
+            <rect x="8" y="112" width="96" height="54" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+            <text x="16" y="128" fill="#94a3b8" font-size="8.5" font-weight="700">CASING PRESS</text>
+            <text id="oisdChpTxt" x="16" y="150" fill="#38bdf8" font-family="JetBrains Mono" font-size="11.5" font-weight="700">0 psi</text>
+
+            <text x="155" y="408" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono" font-size="8.5">TARGET GAS SAND (2200 m • 3350 psi)</text>
+          </svg>
+        `;
+      } else if (id === 'bollsta') {
+        host.innerHTML = `
+          <svg viewBox="0 0 340 420" width="100%" height="340" style="display:block;">
+            <rect x="0" y="90" width="340" height="330" fill="#0b1120"/>
+            <line x1="0" y1="90" x2="340" y2="90" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,4"/>
+            <text x="10" y="82" fill="#38bdf8" font-size="8.5" font-weight="700">DEEPSEA BOLLSTA RIG / SEABED LINE</text>
+
+            <!-- Gas Plume on Rig -->
+            <ellipse id="bolPlume" cx="155" cy="40" rx="100" ry="32" fill="rgba(239,68,68,0.65)" opacity="0"/>
+
+            <!-- 13 3/8-in Casing & Annular Gas Pocket -->
+            <rect x="112" y="90" width="86" height="290" fill="#0f172a" stroke="#64748b" stroke-width="2.5"/>
+            <rect id="bolGasPocket" x="115" y="190" width="80" height="150" fill="rgba(245,158,11,0.55)" opacity="0.9"/>
+            <text x="155" y="270" text-anchor="middle" fill="#fde68a" font-family="JetBrains Mono" font-size="8.5" font-weight="700">TRAPPED ANNULAR GAS</text>
+
+            <!-- Casing Cutter at 510 m -->
+            <g id="bolCutter" style="display:none;">
+              <line x1="100" y1="195" x2="210" y2="195" stroke="#ef4444" stroke-width="4" stroke-dasharray="6,3"/>
+              <text x="155" y="185" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono" font-size="8.5" font-weight="700">CASING CUT (510 m)</text>
+            </g>
+
+            <!-- Log Interpretation Callout -->
+            <rect x="8" y="112" width="96" height="58" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+            <text x="16" y="128" fill="#94a3b8" font-size="8" font-weight="700">CASING LOG QA</text>
+            <text id="bolLogTxt" x="16" y="148" fill="#fff" font-family="JetBrains Mono" font-size="9" font-weight="700">Bond: 0.80</text>
+            <text id="bolBarrierTxt" x="16" y="162" fill="#f59e0b" font-family="JetBrains Mono" font-size="7.5">Assumed OK</text>
+
+            <!-- ΔP True vs Gauge Callout -->
+            <rect x="210" y="112" width="122" height="72" rx="8" fill="#111827" stroke="#a855f7" stroke-width="2"/>
+            <text x="218" y="128" fill="#94a3b8" font-size="8" font-weight="700">DIFFERENTIAL ΔP</text>
+            <text id="bolDpTrue" x="218" y="147" fill="#38bdf8" font-family="JetBrains Mono" font-size="9.5" font-weight="700">True: 0.0 psi</text>
+            <text id="bolDpGauge" x="218" y="166" fill="#a855f7" font-family="JetBrains Mono" font-size="9.5" font-weight="700">Gauge: 0.0 psi</text>
+          </svg>
         `;
       } else {
-        box.innerHTML = `
-          <div style="background:var(--green-soft);border:1px solid var(--green);padding:16px;border-radius:10px;">
-            <strong style="color:#fff;font-size:0.95rem;">🟢 ALL PRE-PERFORATION CHECKS VERIFIED</strong>
-            <div style="font-size:0.84rem;color:#a7f3d0;margin-top:4px;">Hydrostatic overbalance, cement bond, BOP shear ram, and trip-tank monitoring are all confirmed ready.</div>
-          </div>
+        host.innerHTML = `
+          <svg viewBox="0 0 340 420" width="100%" height="340" style="display:block;">
+            <rect x="0" y="0" width="340" height="420" fill="#0b1120"/>
+
+            <!-- Vapour Cloud -->
+            <ellipse id="oilCloud" cx="195" cy="180" rx="110" ry="70" fill="rgba(245,158,11,0.5)" opacity="0"/>
+
+            <!-- Indirect Bath Heater Vessel -->
+            <rect id="oilHeater" x="115" y="120" width="150" height="125" rx="14" fill="rgba(245,158,11,0.35)" stroke="#94a3b8" stroke-width="3"/>
+            <text x="190" y="145" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">INDIRECT BATH HEATER (IDBH)</text>
+
+            <!-- Fire Flames Overlay -->
+            <g id="oilFlames" style="display:none;">
+              <polygon points="130,220 148,135 166,220" fill="#ef4444"/>
+              <polygon points="168,220 190,115 212,220" fill="#f97316"/>
+              <polygon points="210,220 232,140 250,220" fill="#ef4444"/>
+              <text x="190" y="105" text-anchor="middle" fill="#fca5a5" font-family="JetBrains Mono" font-size="12" font-weight="800">🔥 FIRE IGNITION 🔥</text>
+            </g>
+
+            <!-- Inlet Line & Isolation Valve -->
+            <line x1="15" y1="185" x2="115" y2="185" stroke="#38bdf8" stroke-width="8"/>
+            <rect id="oilValve" x="55" y="165" width="38" height="40" rx="6" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+            <text x="74" y="189" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="8" font-weight="700">VALVE</text>
+
+            <!-- Passing Leak Dots -->
+            <line id="oilLeak" x1="95" y1="185" x2="135" y2="185" stroke="#f59e0b" stroke-width="4" stroke-dasharray="5,5"/>
+
+            <!-- Maintenance Worker (Hot Work) -->
+            <g id="oilWorker" style="display:none;">
+              <rect x="276" y="160" width="46" height="58" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+              <text x="299" y="185" text-anchor="middle" fill="#fbbf24" font-size="16">🔧</text>
+              <text x="299" y="205" text-anchor="middle" fill="#fde68a" font-family="JetBrains Mono" font-size="7.5" font-weight="700">HOT WORK</text>
+            </g>
+
+            <!-- Pressure Telemetry Readouts -->
+            <rect x="18" y="278" width="144" height="58" rx="8" fill="#111827" stroke="#a855f7" stroke-width="2"/>
+            <text x="26" y="294" fill="#94a3b8" font-size="8" font-weight="700">CONTROL ROOM PT</text>
+            <text id="oilPtTxt" x="26" y="318" fill="#a855f7" font-family="JetBrains Mono" font-size="12" font-weight="700">0.0 psi</text>
+
+            <rect x="178" y="278" width="144" height="58" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+            <text x="186" y="294" fill="#94a3b8" font-size="8" font-weight="700">TRUE COIL PRESSURE</text>
+            <text id="oilTrueTxt" x="186" y="318" fill="#38bdf8" font-family="JetBrains Mono" font-size="12" font-weight="700">0.0 psi</text>
+          </svg>
         `;
       }
+    }
+
+    function updateCaseSchematic(i) {
+      const s = caseResult.series;
+      const st = caseResult.states;
+      if (caseId === 'oisd') {
+        const sg = s.fluid_sg[i];
+        const gain = s.well_gain_bbl[i];
+        const lel = s.gas_lel_pct[i];
+        const trip = s.trip_tank_reading_bbl[i];
+        const cp = s.casing_pressure_psi[i];
+        const bop = st.bop_state[i];
+        const wire = st.wireline_in_hole[i];
+
+        const fluidEl = document.getElementById('oisdFluid');
+        if (fluidEl) {
+          const blueAlpha = Math.min(0.45, Math.max(0.12, (sg - 0.95) * 1.2));
+          fluidEl.setAttribute('fill', `rgba(56, 189, 248, ${blueAlpha.toFixed(2)})`);
+        }
+
+        const visBub = Math.min(6, Math.ceil(gain / 5.0));
+        for (let b = 0; b < 6; b++) {
+          const bEl = document.getElementById('oisdBub' + b);
+          if (bEl) {
+            bEl.setAttribute('opacity', b < visBub ? '0.9' : '0');
+            const yBase = 325 - b * 38 - ((gain * 2.5) % 18);
+            bEl.setAttribute('cy', Math.max(105, yBase));
+          }
+        }
+
+        const bopEl = document.getElementById('oisdBop');
+        const bopTxt = document.getElementById('oisdBopTxt');
+        const bopColors = { 'Open': '#94a3b8', 'Closing': '#f59e0b', 'Seal Failed': '#ef4444', 'Sealed': '#10b981' };
+        if (bopEl && bopTxt) {
+          bopEl.setAttribute('stroke', bopColors[bop] || '#94a3b8');
+          bopTxt.textContent = bop.toUpperCase();
+          bopTxt.setAttribute('fill', bopColors[bop] || '#cbd5e1');
+        }
+
+        const tripBox = document.getElementById('oisdTripBox');
+        const tripTxt = document.getElementById('oisdTripTxt');
+        if (tripBox && tripTxt) {
+          if (!caseResult.params.trip_tank_online) {
+            tripBox.setAttribute('stroke', '#a855f7');
+            tripTxt.textContent = 'ISOLATED – reads 0.0';
+            tripTxt.setAttribute('fill', '#e9d5ff');
+          } else {
+            tripBox.setAttribute('stroke', trip >= 2 ? '#f59e0b' : '#10b981');
+            tripTxt.textContent = `${trip.toFixed(1)} bbl gain`;
+            tripTxt.setAttribute('fill', '#fff');
+          }
+        }
+
+        const cloud = document.getElementById('oisdGasCloud');
+        if (cloud) cloud.setAttribute('opacity', (lel / 100.0).toFixed(2));
+        const chpTxt = document.getElementById('oisdChpTxt');
+        if (chpTxt) chpTxt.textContent = `${cp.toFixed(0)} psi`;
+        const wLine = document.getElementById('oisdWireline');
+        const wGun = document.getElementById('oisdGun');
+        if (wLine) wLine.style.display = wire === 'yes' ? 'block' : 'none';
+        if (wGun) wGun.style.display = wire === 'yes' ? 'block' : 'none';
+        const flash = document.getElementById('oisdPerfFlash');
+        if (flash) flash.setAttribute('opacity', (caseResult.t[i] >= 74 && caseResult.t[i] <= 77) ? '0.95' : '0');
+      } else if (caseId === 'bollsta') {
+        const trapped = s.trapped_annulus_psi[i];
+        const tdp = s.true_dp_psi[i];
+        const gdp = s.gauge_dp_psi[i];
+        const relRate = s.release_rate_kg_min[i];
+        const logged = s.logged_bond_index[i];
+        const bStat = st.barrier_status[i];
+
+        const pocket = document.getElementById('bolGasPocket');
+        if (pocket) pocket.setAttribute('opacity', Math.min(0.95, trapped / 620.0).toFixed(2));
+
+        const cutter = document.getElementById('bolCutter');
+        if (cutter) cutter.style.display = caseResult.phase[i].includes('Casing cut') ? 'block' : 'none';
+
+        const dpT = document.getElementById('bolDpTrue');
+        const dpG = document.getElementById('bolDpGauge');
+        if (dpT) dpT.textContent = `True: ${tdp.toFixed(1)} psi`;
+        if (dpG) {
+          const isStuck = !caseResult.params.gauge_maintained && caseResult.t[i] >= 70;
+          dpG.textContent = isStuck ? `FROZEN: ${gdp.toFixed(1)} psi` : `Gauge: ${gdp.toFixed(1)} psi`;
+          dpG.setAttribute('fill', isStuck ? '#a855f7' : '#10b981');
+        }
+
+        const logTxt = document.getElementById('bolLogTxt');
+        const barTxt = document.getElementById('bolBarrierTxt');
+        if (logTxt) logTxt.textContent = `Bond: ${logged.toFixed(2)} (True 0.35)`;
+        if (barTxt) {
+          barTxt.textContent = bStat;
+          barTxt.setAttribute('fill', bStat === 'Secured' ? '#10b981' : (bStat === 'NOT verified' ? '#ef4444' : '#f59e0b'));
+        }
+
+        const plume = document.getElementById('bolPlume');
+        if (plume) plume.setAttribute('opacity', Math.min(0.95, relRate / 150.0).toFixed(2));
+      } else {
+        const temp = s.bath_temp_c[i];
+        const ptx = s.transmitter_pressure_psi[i];
+        const ptrue = s.true_coil_pressure_psi[i];
+        const lel = s.lel_pct[i];
+        const vState = st.valve_state[i];
+        const hw = st.hot_work[i];
+        const fire = st.fire[i];
+
+        const heater = document.getElementById('oilHeater');
+        if (heater) {
+          const heatAlpha = Math.min(0.85, Math.max(0.12, (temp - 20) / 100));
+          heater.setAttribute('fill', fire === 'yes' ? 'rgba(239,68,68,0.65)' : `rgba(245,158,11,${heatAlpha.toFixed(2)})`);
+        }
+
+        const valve = document.getElementById('oilValve');
+        const leak = document.getElementById('oilLeak');
+        if (valve) {
+          const vCol = vState === 'Passing' ? '#ef4444' : (vState === 'Closed' ? '#10b981' : '#38bdf8');
+          valve.setAttribute('fill', vCol);
+        }
+        if (leak) leak.style.display = vState === 'Passing' ? 'block' : 'none';
+
+        const ptEl = document.getElementById('oilPtTxt');
+        const trEl = document.getElementById('oilTrueTxt');
+        if (ptEl) ptEl.textContent = !caseResult.params.residual_pressure_monitor ? `FROZEN: ${ptx.toFixed(1)} psi` : `${ptx.toFixed(1)} psi`;
+        if (trEl) trEl.textContent = `${ptrue.toFixed(1)} psi`;
+
+        const cloud = document.getElementById('oilCloud');
+        if (cloud) cloud.setAttribute('opacity', Math.min(0.95, lel / 30.0).toFixed(2));
+
+        const worker = document.getElementById('oilWorker');
+        if (worker) worker.style.display = hw === 'yes' ? 'block' : 'none';
+
+        const flames = document.getElementById('oilFlames');
+        if (flames) flames.style.display = fire === 'yes' ? 'block' : 'none';
+      }
+    }
+
+    function renderCaseFrame(i) {
+      if (!caseResult) return;
+      caseStep = Math.min(Math.max(0, i), caseResult.t.length - 1);
+      document.getElementById('caseSlider').value = caseStep;
+      document.getElementById('caseTimeLabel').textContent = caseResult.t_labels[caseStep];
+      document.getElementById('casePhaseLabel').textContent = caseResult.phase[caseStep];
+
+      // 4 Live Tiles
+      const metaTiles = caseMeta[caseId].tiles;
+      document.getElementById('caseTiles').innerHTML = metaTiles.map(t => {
+        const val = caseResult.series[t.key][caseStep];
+        return `
+          <div class="case-tile">
+            <div class="case-tile-lbl">${t.label}</div>
+            <div class="case-tile-val">${Number(val).toFixed(t.decimals)} ${t.unit}</div>
+          </div>
+        `;
+      }).join('');
+
+      updateCaseSchematic(caseStep);
+
+      // Event Log (i <= caseStep, newest first)
+      const visibleEvs = caseResult.events.filter(e => e.i <= caseStep).slice().reverse();
+      const evColors = { info: '#38bdf8', warn: '#f59e0b', danger: '#ef4444', success: '#10b981', ai: '#a855f7' };
+      document.getElementById('caseEventLog').innerHTML = visibleEvs.map(ev => {
+        const col = evColors[ev.type] || '#38bdf8';
+        return `
+          <div class="case-ev" style="border-left-color:${col};">
+            <div class="case-ev-time" style="color:${col};">${ev.t_label}</div>
+            <div style="color:#e2e8f0;">${ev.text}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Live Badge & Outcome Card
+      const out = caseResult.outcome;
+      const badge = document.getElementById('caseLiveBadge');
+      const outCard = document.getElementById('caseOutcomeCard');
+
+      if (caseStep >= out.event_index) {
+        outCard.style.display = 'block';
+        outCard.className = 'case-outcome-card case-outcome-' + out.severity;
+        document.getElementById('caseOutcomeHeadline').textContent = out.headline;
+        document.getElementById('caseOutcomeDetail').textContent = out.detail;
+        document.getElementById('caseOutcomeMetrics').innerHTML = out.metrics.map(m =>
+          `<div><span style="color:var(--text-secondary)">${m.label}:</span> <strong>${m.value}</strong></div>`
+        ).join('');
+
+        badge.textContent = out.status;
+        badge.style.background = out.severity === 'danger' ? 'var(--red-soft)' : (out.severity === 'warn' ? 'var(--amber-soft)' : 'var(--green-soft)');
+        badge.style.color = out.severity === 'danger' ? 'var(--red)' : (out.severity === 'warn' ? 'var(--amber)' : 'var(--green)');
+      } else {
+        outCard.style.display = 'none';
+        badge.textContent = caseResult.phase[caseStep];
+        badge.style.background = 'var(--blue-soft)';
+        badge.style.color = 'var(--blue)';
+      }
+
+      if (caseChart) caseChart.draw();
+    }
+
+    function renderCompareTable() {
+      const base = caseBaseline[caseId];
+      const cur = caseResult;
+      if (!base || !cur) return;
+      const tbody = document.querySelector('#caseCompareTable tbody');
+      tbody.innerHTML = base.outcome.metrics.map((bm, idx) => {
+        const cm = cur.outcome.metrics[idx];
+        const improved = bm.value !== cm.value && cur.outcome.severity !== 'danger';
+        return `
+          <tr>
+            <td style="padding:7px 8px;color:var(--text-secondary);">${bm.label}</td>
+            <td style="padding:7px 8px;font-family:var(--font-mono);color:#fca5a5;">${bm.value}</td>
+            <td style="padding:7px 8px;font-family:var(--font-mono);font-weight:700;color:${improved ? 'var(--green)' : '#e2e8f0'};">${cm.value}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCaseChart() {
+      const meta = caseMeta[caseId];
+      const ctx = document.getElementById('caseChart').getContext('2d');
+      const datasets = meta.chart_series.map(cs => ({
+        label: cs.label,
+        data: caseResult.series[cs.key],
+        borderColor: cs.color,
+        yAxisID: cs.axis,
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.15
+      }));
+
+      if (caseChart) caseChart.destroy();
+      caseChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: caseResult.t_labels, datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          interaction: { mode: 'index', intersect: false },
+          onClick: (e, els) => {
+            if (els && els.length > 0) renderCaseFrame(els[0].index);
+          },
+          plugins: {
+            legend: { labels: { color: '#e2e8f0', font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } } }
+          },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8', maxTicksLimit: 10 } },
+            y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+            y1: { position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#94a3b8' } }
+          }
+        }
+      });
+    }
+
+    function toggleCasePlay() {
+      const btn = document.getElementById('casePlayBtn');
+      if (caseTimer) {
+        clearInterval(caseTimer);
+        caseTimer = null;
+        btn.classList.remove('playing');
+        btn.textContent = '▶ Play';
+      } else {
+        if (caseStep >= caseResult.t.length - 1) caseStep = 0;
+        btn.classList.add('playing');
+        btn.textContent = '⏸ Pause';
+        caseTimer = setInterval(() => {
+          if (caseStep >= caseResult.t.length - 1) {
+            toggleCasePlay();
+            return;
+          }
+          renderCaseFrame(caseStep + 1);
+        }, caseIntervalMs);
+      }
+    }
+
+    function setCaseSpeed(mult, ms) {
+      caseIntervalMs = ms;
+      document.querySelectorAll('#tab-cases .speed-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById('caseSpd_' + mult);
+      if (btn) btn.classList.add('active');
+      if (caseTimer) {
+        clearInterval(caseTimer);
+        caseTimer = setInterval(() => {
+          if (caseStep >= caseResult.t.length - 1) {
+            toggleCasePlay();
+            return;
+          }
+          renderCaseFrame(caseStep + 1);
+        }, caseIntervalMs);
+      }
+    }
+
+    function restartCase() {
+      if (caseTimer) toggleCasePlay();
+      renderCaseFrame(0);
+    }
+
+    function skipCaseToEnd() {
+      if (caseTimer) toggleCasePlay();
+      if (caseResult) renderCaseFrame(caseResult.t.length - 1);
     }
 
     window.addEventListener('DOMContentLoaded', boot);

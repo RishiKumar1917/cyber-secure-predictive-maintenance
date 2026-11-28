@@ -1,0 +1,152 @@
+t,t_label,phase,hydrostatic_psi,pore_psi,overbalance_psi,fluid_sg,influx_rate_bpm,well_gain_bbl,trip_tank_reading_bbl,flow_out_gpm,casing_pressure_psi,gas_lel_pct,bop_state,wireline_in_hole
+0,T+0 min,Fluid swap,3693.64,3350.0,343.64,1.18,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+1,T+1 min,Fluid swap,3676.95,3350.0,326.95,1.175,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+2,T+2 min,Fluid swap,3660.25,3350.0,310.25,1.169,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+3,T+3 min,Fluid swap,3643.56,3350.0,293.56,1.164,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+4,T+4 min,Fluid swap,3626.86,3350.0,276.86,1.159,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+5,T+5 min,Fluid swap,3610.17,3350.0,260.17,1.153,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+6,T+6 min,Fluid swap,3593.47,3350.0,243.47,1.148,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+7,T+7 min,Fluid swap,3576.78,3350.0,226.78,1.143,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+8,T+8 min,Fluid swap,3560.08,3350.0,210.08,1.137,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+9,T+9 min,Fluid swap,3543.39,3350.0,193.39,1.132,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+10,T+10 min,Fluid swap,3526.7,3350.0,176.7,1.127,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+11,T+11 min,Fluid swap,3510.0,3350.0,160.0,1.121,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+12,T+12 min,Fluid swap,3493.31,3350.0,143.31,1.116,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+13,T+13 min,Fluid swap,3476.61,3350.0,126.61,1.111,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+14,T+14 min,Fluid swap,3459.92,3350.0,109.92,1.105,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+15,T+15 min,Fluid swap,3443.22,3350.0,93.22,1.1,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+16,T+16 min,Fluid swap,3426.53,3350.0,76.53,1.095,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+17,T+17 min,Fluid swap,3409.83,3350.0,59.83,1.089,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+18,T+18 min,Fluid swap,3393.14,3350.0,43.14,1.084,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+19,T+19 min,Fluid swap,3376.45,3350.0,26.45,1.079,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+20,T+20 min,Fluid swap,3359.75,3350.0,9.75,1.073,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+21,T+21 min,Fluid swap,3343.06,3350.0,-6.94,1.068,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+22,T+22 min,Fluid swap,3326.36,3350.0,-23.64,1.063,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+23,T+23 min,Fluid swap,3309.67,3350.0,-40.33,1.057,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+24,T+24 min,Fluid swap,3292.97,3350.0,-57.03,1.052,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+25,T+25 min,Fluid swap,3276.28,3350.0,-73.72,1.047,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+26,T+26 min,Fluid swap,3259.58,3350.0,-90.42,1.041,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+27,T+27 min,Fluid swap,3242.89,3350.0,-107.11,1.036,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+28,T+28 min,Fluid swap,3226.2,3350.0,-123.8,1.031,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+29,T+29 min,Fluid swap,3209.5,3350.0,-140.5,1.025,0.0,0.0,0.0,0.0,0.0,0.0,Open,no
+30,T+30 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+31,T+31 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+32,T+32 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+33,T+33 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+34,T+34 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+35,T+35 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+36,T+36 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+37,T+37 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+38,T+38 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+39,T+39 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+40,T+40 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+41,T+41 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+42,T+42 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+43,T+43 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+44,T+44 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+45,T+45 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+46,T+46 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+47,T+47 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+48,T+48 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+49,T+49 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+50,T+50 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+51,T+51 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+52,T+52 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+53,T+53 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+54,T+54 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+55,T+55 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+56,T+56 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+57,T+57 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+58,T+58 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+59,T+59 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+60,T+60 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+61,T+61 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+62,T+62 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+63,T+63 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+64,T+64 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+65,T+65 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+66,T+66 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+67,T+67 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+68,T+68 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+69,T+69 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+70,T+70 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+71,T+71 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+72,T+72 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+73,T+73 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+74,T+74 min,Wireline perforating gun RIH,3192.81,3350.0,-157.19,1.02,0.0,0.0,0.0,0.0,0.0,0.0,Open,yes
+75,T+75 min,Perforation,3184.76,3350.0,-165.24,1.02,1.006,1.01,0.0,42.25,3.02,0.0,Open,yes
+76,T+76 min,Post-perforation,3176.3,3350.0,-173.7,1.02,1.058,2.06,0.0,44.42,6.19,0.0,Open,yes
+77,T+77 min,Post-perforation,3167.41,3350.0,-182.59,1.02,1.112,3.18,0.0,46.69,9.53,0.0,Open,yes
+78,T+78 min,Post-perforation,3158.06,3350.0,-191.94,1.02,1.169,4.34,0.0,49.08,13.03,0.0,Open,yes
+79,T+79 min,Post-perforation,3148.23,3350.0,-201.77,1.02,1.228,5.57,0.0,51.59,16.72,0.0,Open,yes
+80,T+80 min,Post-perforation,3137.9,3350.0,-212.1,1.02,1.291,6.86,0.0,54.24,20.59,0.0,Open,yes
+81,T+81 min,Post-perforation,3127.04,3350.0,-222.96,1.02,1.357,8.22,0.0,57.01,24.66,0.0,Open,yes
+82,T+82 min,Post-perforation,3115.62,3350.0,-234.38,1.02,1.427,9.65,0.0,59.93,28.94,0.0,Open,yes
+83,T+83 min,Post-perforation,3103.62,3350.0,-246.38,1.02,1.5,11.15,0.0,63.0,33.44,0.0,Open,yes
+84,T+84 min,Post-perforation,3091.01,3350.0,-258.99,1.02,1.577,12.72,0.0,66.23,38.17,0.0,Open,yes
+85,T+85 min,Post-perforation,3077.75,3350.0,-272.25,1.02,1.658,14.38,0.0,69.62,43.15,0.0,Open,yes
+86,T+86 min,Post-perforation,3063.81,3350.0,-286.19,1.02,1.742,16.12,0.0,73.18,48.37,0.0,Open,yes
+87,T+87 min,Post-perforation,3049.16,3350.0,-300.84,1.02,1.832,17.96,0.0,76.93,53.87,0.0,Open,yes
+88,T+88 min,Post-perforation,3033.75,3350.0,-316.25,1.02,1.925,19.88,0.0,80.87,59.65,0.0,Open,yes
+89,T+89 min,Post-perforation,3017.56,3350.0,-332.44,1.02,2.024,21.91,0.0,85.01,65.72,12.7,Open,yes
+90,T+90 min,Post-perforation,3000.54,3350.0,-349.46,1.02,2.128,24.03,0.0,89.36,72.1,26.9,Open,yes
+91,T+91 min,Post-perforation,2982.65,3350.0,-367.35,1.02,2.237,26.27,0.0,93.93,78.81,41.8,Closing,yes
+92,T+92 min,Post-perforation,2963.84,3350.0,-386.16,1.02,2.351,28.62,0.0,98.74,85.86,57.5,Closing,yes
+93,T+93 min,Post-perforation,2944.07,3350.0,-405.93,1.02,2.471,31.09,0.0,103.8,93.28,74.0,Seal Failed,yes
+94,T+94 min,Post-perforation,2923.28,3350.0,-426.72,1.02,2.598,33.69,0.0,109.11,101.07,91.3,Seal Failed,yes
+95,T+95 min,Post-perforation,2901.44,3350.0,-448.56,1.02,2.731,36.42,0.0,114.7,109.26,100.0,Seal Failed,yes
+96,T+96 min,Post-perforation,2878.47,3350.0,-471.53,1.02,2.871,39.29,0.0,120.57,117.88,100.0,Seal Failed,yes
+97,T+97 min,Post-perforation,2854.33,3350.0,-495.67,1.02,3.018,42.31,0.0,126.75,126.93,100.0,Seal Failed,yes
+98,T+98 min,Post-perforation,2828.95,3350.0,-521.05,1.02,3.172,45.48,0.0,133.24,136.45,100.0,Seal Failed,yes
+99,T+99 min,Post-perforation,2802.27,3350.0,-547.73,1.02,3.335,48.82,0.0,140.06,146.45,100.0,Seal Failed,yes
+100,T+100 min,Post-perforation,2774.23,3350.0,-575.77,1.02,3.505,52.32,0.0,147.23,156.97,100.0,Seal Failed,yes
+101,T+101 min,Post-perforation,2744.75,3350.0,-605.25,1.02,3.685,56.01,0.0,154.77,168.02,100.0,Seal Failed,yes
+102,T+102 min,Post-perforation,2713.76,3350.0,-636.24,1.02,3.874,59.88,0.0,162.69,179.64,100.0,Seal Failed,yes
+103,T+103 min,Post-perforation,2681.18,3350.0,-668.82,1.02,4.072,63.95,0.0,171.02,191.86,100.0,Seal Failed,yes
+104,T+104 min,Post-perforation,2646.94,3350.0,-703.06,1.02,4.28,68.23,0.0,179.78,204.7,100.0,Seal Failed,yes
+105,T+105 min,Post-perforation,2610.94,3350.0,-739.06,1.02,4.5,72.73,0.0,188.98,218.2,100.0,Seal Failed,yes
+106,T+106 min,Post-perforation,2573.1,3350.0,-776.9,1.02,4.73,77.46,0.0,198.66,232.39,100.0,Seal Failed,yes
+107,T+107 min,Post-perforation,2533.33,3350.0,-816.67,1.02,4.972,82.44,0.0,208.83,247.31,100.0,Seal Failed,yes
+108,T+108 min,Post-perforation,2491.51,3350.0,-858.49,1.02,5.227,87.66,0.0,219.52,262.99,100.0,Seal Failed,yes
+109,T+109 min,Post-perforation,2447.56,3350.0,-902.44,1.02,5.494,93.16,0.0,230.76,279.47,100.0,Seal Failed,yes
+110,T+110 min,Post-perforation,2401.35,3350.0,-948.65,1.02,5.776,98.93,0.0,242.58,296.8,100.0,Seal Failed,yes
+111,T+111 min,Post-perforation,2353.35,3350.0,-996.65,1.02,6.0,104.93,0.0,252.0,314.8,100.0,Seal Failed,yes
+112,T+112 min,Post-perforation,2305.35,3350.0,-1044.65,1.02,6.0,110.93,0.0,252.0,332.8,100.0,Seal Failed,yes
+113,T+113 min,Post-perforation,2257.35,3350.0,-1092.65,1.02,6.0,116.93,0.0,252.0,350.8,100.0,Seal Failed,yes
+114,T+114 min,Post-perforation,2209.35,3350.0,-1140.65,1.02,6.0,122.93,0.0,252.0,368.8,100.0,Seal Failed,yes
+115,T+115 min,Post-perforation,2161.35,3350.0,-1188.65,1.02,6.0,128.93,0.0,252.0,386.8,100.0,Seal Failed,yes
+116,T+116 min,Post-perforation,2113.35,3350.0,-1236.65,1.02,6.0,134.93,0.0,252.0,404.8,100.0,Seal Failed,yes
+117,T+117 min,Post-perforation,2065.35,3350.0,-1284.65,1.02,6.0,140.93,0.0,252.0,422.8,100.0,Seal Failed,yes
+118,T+118 min,Post-perforation,2017.35,3350.0,-1332.65,1.02,6.0,146.93,0.0,252.0,440.8,100.0,Seal Failed,yes
+119,T+119 min,Post-perforation,1969.35,3350.0,-1380.65,1.02,6.0,152.93,0.0,252.0,458.8,100.0,Seal Failed,yes
+120,T+120 min,Post-perforation,1921.35,3350.0,-1428.65,1.02,6.0,158.93,0.0,252.0,476.8,100.0,Seal Failed,yes
+121,T+121 min,Post-perforation,1873.35,3350.0,-1476.65,1.02,6.0,164.93,0.0,252.0,494.8,100.0,Seal Failed,yes
+122,T+122 min,Post-perforation,1825.35,3350.0,-1524.65,1.02,6.0,170.93,0.0,252.0,512.8,100.0,Seal Failed,yes
+123,T+123 min,Post-perforation,1777.35,3350.0,-1572.65,1.02,6.0,176.93,0.0,252.0,530.8,100.0,Seal Failed,yes
+124,T+124 min,Post-perforation,1729.35,3350.0,-1620.65,1.02,6.0,182.93,0.0,252.0,548.8,100.0,Seal Failed,yes
+125,T+125 min,Post-perforation,1681.35,3350.0,-1668.65,1.02,6.0,188.93,0.0,252.0,566.8,100.0,Seal Failed,yes
+126,T+126 min,Post-perforation,1633.35,3350.0,-1716.65,1.02,6.0,194.93,0.0,252.0,584.8,100.0,Seal Failed,yes
+127,T+127 min,Post-perforation,1585.35,3350.0,-1764.65,1.02,6.0,200.93,0.0,252.0,602.8,100.0,Seal Failed,yes
+128,T+128 min,Post-perforation,1537.35,3350.0,-1812.65,1.02,6.0,206.93,0.0,252.0,620.8,100.0,Seal Failed,yes
+129,T+129 min,Post-perforation,1489.35,3350.0,-1860.65,1.02,6.0,212.93,0.0,252.0,638.8,100.0,Seal Failed,yes
+130,T+130 min,Post-perforation,1441.35,3350.0,-1908.65,1.02,6.0,218.93,0.0,252.0,656.8,100.0,Seal Failed,yes
+131,T+131 min,Post-perforation,1393.35,3350.0,-1956.65,1.02,6.0,224.93,0.0,252.0,674.8,100.0,Seal Failed,yes
+132,T+132 min,Post-perforation,1345.35,3350.0,-2004.65,1.02,6.0,230.93,0.0,252.0,692.8,100.0,Seal Failed,yes
+133,T+133 min,Post-perforation,1297.35,3350.0,-2052.65,1.02,6.0,236.93,0.0,252.0,710.8,100.0,Seal Failed,yes
+134,T+134 min,Post-perforation,1249.35,3350.0,-2100.65,1.02,6.0,242.93,0.0,252.0,728.8,100.0,Seal Failed,yes
+135,T+135 min,Post-perforation,1201.35,3350.0,-2148.65,1.02,6.0,248.93,0.0,252.0,746.8,100.0,Seal Failed,yes
+136,T+136 min,Post-perforation,1153.35,3350.0,-2196.65,1.02,6.0,254.93,0.0,252.0,764.8,100.0,Seal Failed,yes
+137,T+137 min,Post-perforation,1105.35,3350.0,-2244.65,1.02,6.0,260.93,0.0,252.0,782.8,100.0,Seal Failed,yes
+138,T+138 min,Post-perforation,1057.35,3350.0,-2292.65,1.02,6.0,266.93,0.0,252.0,800.8,100.0,Seal Failed,yes
+139,T+139 min,Post-perforation,1009.35,3350.0,-2340.65,1.02,6.0,272.93,0.0,252.0,818.8,100.0,Seal Failed,yes
+140,T+140 min,Post-perforation,961.35,3350.0,-2388.65,1.02,6.0,278.93,0.0,252.0,836.8,100.0,Seal Failed,yes
+141,T+141 min,Post-perforation,913.35,3350.0,-2436.65,1.02,6.0,284.93,0.0,252.0,854.8,100.0,Seal Failed,yes
+142,T+142 min,Post-perforation,865.35,3350.0,-2484.65,1.02,6.0,290.93,0.0,252.0,872.8,100.0,Seal Failed,yes
+143,T+143 min,Post-perforation,817.35,3350.0,-2532.65,1.02,6.0,296.93,0.0,252.0,890.8,100.0,Seal Failed,yes
+144,T+144 min,Post-perforation,769.35,3350.0,-2580.65,1.02,6.0,302.93,0.0,252.0,908.8,100.0,Seal Failed,yes
+145,T+145 min,Post-perforation,721.35,3350.0,-2628.65,1.02,6.0,308.93,0.0,252.0,926.8,100.0,Seal Failed,yes
+146,T+146 min,Post-perforation,673.35,3350.0,-2676.65,1.02,6.0,314.93,0.0,252.0,944.8,100.0,Seal Failed,yes
+147,T+147 min,Post-perforation,625.35,3350.0,-2724.65,1.02,6.0,320.93,0.0,252.0,962.8,100.0,Seal Failed,yes
+148,T+148 min,Post-perforation,577.35,3350.0,-2772.65,1.02,6.0,326.93,0.0,252.0,980.8,100.0,Seal Failed,yes
+149,T+149 min,Post-perforation,529.35,3350.0,-2820.65,1.02,6.0,332.93,0.0,252.0,998.8,100.0,Seal Failed,yes
+150,T+150 min,Post-perforation,481.35,3350.0,-2868.65,1.02,6.0,338.93,0.0,252.0,1016.8,100.0,Seal Failed,yes

@@ -5,6 +5,7 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import numpy as np
 import pandas as pd
+import case_study_sim
 
 PORT = 8505
 BASE_DIR = Path(__file__).resolve().parent
@@ -184,6 +185,16 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
                     "eval_summary": eval_summary,
                     "presets": SCENARIO_PRESETS,
                     "total_rows": len(df),
+                }
+            )
+            return
+
+        if path == "/api/cases":
+            self._send_json(
+                {
+                    "meta": case_study_sim.CASE_META,
+                    "as_happened": case_study_sim.AS_HAPPENED,
+                    "all_fixes": case_study_sim.ALL_FIXES,
                 }
             )
             return
@@ -422,6 +433,24 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
                     "attributions": compute_snapshot_attribution(sim_df.iloc[0]),
                 }
             )
+            return
+
+        if parsed.path == "/api/case_sim":
+            length = int(self.headers.get("Content-Length", 0))
+            try:
+                body = json.loads(self.rfile.read(length).decode("utf-8")) if length > 0 else {}
+            except json.JSONDecodeError:
+                self._send_json({"error": "Invalid JSON body"}, status=400)
+                return
+
+            case_id = body.get("case_id")
+            if case_id not in case_study_sim.AS_HAPPENED:
+                self._send_json({"error": f"Unknown case_id: {case_id}"}, status=400)
+                return
+
+            params = body.get("params") or {}
+            result = case_study_sim.simulate_case(case_id, params)
+            self._send_json(result)
             return
 
         self.send_error(404, "Endpoint not found")

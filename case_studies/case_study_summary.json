@@ -1,0 +1,169 @@
+{
+  "oisd": {
+    "title": "Gas Blowout at Onshore Workover Rig",
+    "as_happened": {
+      "status": "BLOWOUT",
+      "severity": "danger",
+      "headline": "BLOWOUT \u2014 Uncontrolled Gas Flow",
+      "detail": "Lighter fluid (1.02 SG) underbalanced the gas zone; kick escalated to 338.9 bbl before the well could be sealed.",
+      "event_index": 97,
+      "metrics": [
+        {
+          "label": "Total gas influx (bbl)",
+          "value": "338.9 bbl"
+        },
+        {
+          "label": "Kick detected at",
+          "value": "T+91 min"
+        },
+        {
+          "label": "Well secured at",
+          "value": "Not sealed (Blowout)"
+        },
+        {
+          "label": "Max casing pressure (psi)",
+          "value": "1017 psi"
+        },
+        {
+          "label": "Outcome",
+          "value": "BLOWOUT"
+        }
+      ]
+    },
+    "with_fixes": {
+      "status": "SAFE",
+      "severity": "success",
+      "headline": "SAFE \u2014 Perforated with +250 psi Overbalance (No Kick)",
+      "detail": "Completion fluid (SG 1.15, Ph 3600 psi) balanced the 3350 psi gas formation. Zero influx occurred during or after perforation.",
+      "event_index": 75,
+      "metrics": [
+        {
+          "label": "Total gas influx (bbl)",
+          "value": "0.0 bbl"
+        },
+        {
+          "label": "Kick detected at",
+          "value": "No kick"
+        },
+        {
+          "label": "Well secured at",
+          "value": "Intact overbalance"
+        },
+        {
+          "label": "Max casing pressure (psi)",
+          "value": "0 psi"
+        },
+        {
+          "label": "Outcome",
+          "value": "SAFE"
+        }
+      ]
+    }
+  },
+  "bollsta": {
+    "title": "Deepsea Bollsta Well-Control Incident (Q-21)",
+    "as_happened": {
+      "status": "RELEASE",
+      "severity": "danger",
+      "headline": "UNCONTROLLED RELEASE \u2014 ~930 kg Gas & Water at Casing Cut",
+      "detail": "Faulty logging calibration masked the weak outer barrier and the unmaintained \u0394P gauge froze, causing trapped annular gas to escape when the 13 3/8-in casing was cut at T+150 min.",
+      "event_index": 150,
+      "metrics": [
+        {
+          "label": "Hazard recognised at",
+          "value": "Not detected before cut"
+        },
+        {
+          "label": "Gas/water released (kg)",
+          "value": "930 kg"
+        },
+        {
+          "label": "Casing cut at",
+          "value": "T+150 min"
+        },
+        {
+          "label": "Outcome",
+          "value": "RELEASE"
+        }
+      ]
+    },
+    "with_fixes": {
+      "status": "SAFE",
+      "severity": "success",
+      "headline": "SAFE \u2014 Outer Barrier Hazard Caught at T+45 min",
+      "detail": "Hazard recognised at T+45 min; casing cut postponed to T+150 min while annular pressure was safely bled to 0 psi.",
+      "event_index": 45,
+      "metrics": [
+        {
+          "label": "Hazard recognised at",
+          "value": "T+45 min"
+        },
+        {
+          "label": "Gas/water released (kg)",
+          "value": "0.0 kg"
+        },
+        {
+          "label": "Casing cut at",
+          "value": "T+150 min"
+        },
+        {
+          "label": "Outcome",
+          "value": "SAFE"
+        }
+      ]
+    }
+  },
+  "oil_idbh": {
+    "title": "Intermediate Tank Farm Indirect Bath Heater Fire",
+    "as_happened": {
+      "status": "FIRE",
+      "severity": "danger",
+      "headline": "FIRE \u2014 Hydrocarbon Vapour Ignited During Hot Work",
+      "detail": "With the pressure transmitter frozen at 0.0 psi, a passing valve built up 35.0 psi and 25.1% LEL by Hour 48.0, igniting at maintenance.",
+      "event_index": 288,
+      "metrics": [
+        {
+          "label": "LEL at hot-work start (%)",
+          "value": "25.1%"
+        },
+        {
+          "label": "Residual pressure at work start (psi)",
+          "value": "35.0 psi"
+        },
+        {
+          "label": "Hazard recognised at",
+          "value": "Not detected"
+        },
+        {
+          "label": "Outcome",
+          "value": "FIRE"
+        }
+      ]
+    },
+    "with_fixes": {
+      "status": "SAFE",
+      "severity": "success",
+      "headline": "SAFE \u2014 Maintenance Completed Without Ignition",
+      "detail": "Hydrocarbon LEL at work start was 0.0% (or stopped at 0.0% after purge/DBB). Safeguard triggered at: Prevented (DBB).",
+      "event_index": 288,
+      "metrics": [
+        {
+          "label": "LEL at hot-work start (%)",
+          "value": "0.0%"
+        },
+        {
+          "label": "Residual pressure at work start (psi)",
+          "value": "0.0 psi"
+        },
+        {
+          "label": "Hazard recognised at",
+          "value": "Prevented (DBB)"
+        },
+        {
+          "label": "Outcome",
+          "value": "SAFE"
+        }
+      ]
+    }
+  }
+}

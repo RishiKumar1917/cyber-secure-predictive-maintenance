@@ -1,0 +1,242 @@
+t,t_label,phase,true_bond_index,logged_bond_index,true_dp_psi,gauge_dp_psi,trapped_annulus_psi,release_rate_kg_min,cumulative_release_kg,rig_floor_lel_pct,barrier_status
+0,T+0 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+1,T+1 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+2,T+2 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+3,T+3 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+4,T+4 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+5,T+5 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+6,T+6 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+7,T+7 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+8,T+8 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+9,T+9 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+10,T+10 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+11,T+11 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+12,T+12 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+13,T+13 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+14,T+14 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+15,T+15 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+16,T+16 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+17,T+17 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+18,T+18 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+19,T+19 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+20,T+20 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+21,T+21 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+22,T+22 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+23,T+23 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+24,T+24 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+25,T+25 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+26,T+26 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+27,T+27 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+28,T+28 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+29,T+29 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+30,T+30 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+31,T+31 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+32,T+32 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+33,T+33 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+34,T+34 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+35,T+35 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+36,T+36 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+37,T+37 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+38,T+38 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+39,T+39 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+40,T+40 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+41,T+41 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+42,T+42 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+43,T+43 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+44,T+44 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,Assumed OK
+45,T+45 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+46,T+46 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+47,T+47 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+48,T+48 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+49,T+49 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+50,T+50 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+51,T+51 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+52,T+52 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+53,T+53 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+54,T+54 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+55,T+55 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,620.0,0.0,0.0,0.0,NOT verified
+56,T+56 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,604.5,0.0,0.0,0.0,NOT verified
+57,T+57 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,589.0,0.0,0.0,0.0,NOT verified
+58,T+58 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,573.5,0.0,0.0,0.0,NOT verified
+59,T+59 min,Barrier logging behind 13 3/8-in casing,0.35,0.35,0.0,0.0,558.0,0.0,0.0,0.0,NOT verified
+60,T+60 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,542.5,0.0,0.0,0.0,NOT verified
+61,T+61 min,Pressure monitoring / ΔP hold,0.35,0.35,2.55,2.55,527.0,0.0,0.0,0.0,NOT verified
+62,T+62 min,Pressure monitoring / ΔP hold,0.35,0.35,4.95,4.95,511.5,0.0,0.0,0.0,NOT verified
+63,T+63 min,Pressure monitoring / ΔP hold,0.35,0.35,7.2,7.2,496.0,0.0,0.0,0.0,NOT verified
+64,T+64 min,Pressure monitoring / ΔP hold,0.35,0.35,9.3,9.3,480.5,0.0,0.0,0.0,NOT verified
+65,T+65 min,Pressure monitoring / ΔP hold,0.35,0.35,11.25,11.25,465.0,0.0,0.0,0.0,NOT verified
+66,T+66 min,Pressure monitoring / ΔP hold,0.35,0.35,13.05,13.05,449.5,0.0,0.0,0.0,NOT verified
+67,T+67 min,Pressure monitoring / ΔP hold,0.35,0.35,14.7,14.7,434.0,0.0,0.0,0.0,NOT verified
+68,T+68 min,Pressure monitoring / ΔP hold,0.35,0.35,16.2,16.2,418.5,0.0,0.0,0.0,NOT verified
+69,T+69 min,Pressure monitoring / ΔP hold,0.35,0.35,17.55,17.55,403.0,0.0,0.0,0.0,NOT verified
+70,T+70 min,Pressure monitoring / ΔP hold,0.35,0.35,18.75,18.75,387.5,0.0,0.0,0.0,NOT verified
+71,T+71 min,Pressure monitoring / ΔP hold,0.35,0.35,19.8,19.8,372.0,0.0,0.0,0.0,NOT verified
+72,T+72 min,Pressure monitoring / ΔP hold,0.35,0.35,20.7,20.7,356.5,0.0,0.0,0.0,NOT verified
+73,T+73 min,Pressure monitoring / ΔP hold,0.35,0.35,21.45,21.45,341.0,0.0,0.0,0.0,NOT verified
+74,T+74 min,Pressure monitoring / ΔP hold,0.35,0.35,22.05,22.05,325.5,0.0,0.0,0.0,NOT verified
+75,T+75 min,Pressure monitoring / ΔP hold,0.35,0.35,22.5,22.5,310.0,0.0,0.0,0.0,NOT verified
+76,T+76 min,Pressure monitoring / ΔP hold,0.35,0.35,22.8,22.8,294.5,0.0,0.0,0.0,NOT verified
+77,T+77 min,Pressure monitoring / ΔP hold,0.35,0.35,22.95,22.95,279.0,0.0,0.0,0.0,NOT verified
+78,T+78 min,Pressure monitoring / ΔP hold,0.35,0.35,22.95,22.95,263.5,0.0,0.0,0.0,NOT verified
+79,T+79 min,Pressure monitoring / ΔP hold,0.35,0.35,22.8,22.8,248.0,0.0,0.0,0.0,NOT verified
+80,T+80 min,Pressure monitoring / ΔP hold,0.35,0.35,22.5,22.5,232.5,0.0,0.0,0.0,NOT verified
+81,T+81 min,Pressure monitoring / ΔP hold,0.35,0.35,22.05,22.05,217.0,0.0,0.0,0.0,NOT verified
+82,T+82 min,Pressure monitoring / ΔP hold,0.35,0.35,21.45,21.45,201.5,0.0,0.0,0.0,NOT verified
+83,T+83 min,Pressure monitoring / ΔP hold,0.35,0.35,20.7,20.7,186.0,0.0,0.0,0.0,NOT verified
+84,T+84 min,Pressure monitoring / ΔP hold,0.35,0.35,19.8,19.8,170.5,0.0,0.0,0.0,NOT verified
+85,T+85 min,Pressure monitoring / ΔP hold,0.35,0.35,18.75,18.75,155.0,0.0,0.0,0.0,NOT verified
+86,T+86 min,Pressure monitoring / ΔP hold,0.35,0.35,17.55,17.55,139.5,0.0,0.0,0.0,NOT verified
+87,T+87 min,Pressure monitoring / ΔP hold,0.35,0.35,16.2,16.2,124.0,0.0,0.0,0.0,NOT verified
+88,T+88 min,Pressure monitoring / ΔP hold,0.35,0.35,14.7,14.7,108.5,0.0,0.0,0.0,NOT verified
+89,T+89 min,Pressure monitoring / ΔP hold,0.35,0.35,13.05,13.05,93.0,0.0,0.0,0.0,NOT verified
+90,T+90 min,Pressure monitoring / ΔP hold,0.35,0.35,11.25,11.25,77.5,0.0,0.0,0.0,NOT verified
+91,T+91 min,Pressure monitoring / ΔP hold,0.35,0.35,9.3,9.3,62.0,0.0,0.0,0.0,NOT verified
+92,T+92 min,Pressure monitoring / ΔP hold,0.35,0.35,7.2,7.2,46.5,0.0,0.0,0.0,NOT verified
+93,T+93 min,Pressure monitoring / ΔP hold,0.35,0.35,4.95,4.95,31.0,0.0,0.0,0.0,NOT verified
+94,T+94 min,Pressure monitoring / ΔP hold,0.35,0.35,2.55,2.55,15.5,0.0,0.0,0.0,NOT verified
+95,T+95 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+96,T+96 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+97,T+97 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+98,T+98 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+99,T+99 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+100,T+100 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+101,T+101 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+102,T+102 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+103,T+103 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+104,T+104 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+105,T+105 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+106,T+106 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+107,T+107 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+108,T+108 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+109,T+109 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+110,T+110 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+111,T+111 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+112,T+112 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+113,T+113 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+114,T+114 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+115,T+115 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+116,T+116 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+117,T+117 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+118,T+118 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+119,T+119 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+120,T+120 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+121,T+121 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+122,T+122 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+123,T+123 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+124,T+124 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+125,T+125 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+126,T+126 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+127,T+127 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+128,T+128 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+129,T+129 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+130,T+130 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+131,T+131 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+132,T+132 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+133,T+133 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+134,T+134 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+135,T+135 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+136,T+136 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+137,T+137 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+138,T+138 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+139,T+139 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+140,T+140 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+141,T+141 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+142,T+142 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+143,T+143 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+144,T+144 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+145,T+145 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+146,T+146 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+147,T+147 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+148,T+148 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+149,T+149 min,Pressure monitoring / ΔP hold,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+150,T+150 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+151,T+151 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+152,T+152 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+153,T+153 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+154,T+154 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+155,T+155 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+156,T+156 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+157,T+157 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+158,T+158 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+159,T+159 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+160,T+160 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+161,T+161 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+162,T+162 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+163,T+163 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+164,T+164 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+165,T+165 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+166,T+166 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+167,T+167 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+168,T+168 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+169,T+169 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+170,T+170 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+171,T+171 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+172,T+172 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+173,T+173 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+174,T+174 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+175,T+175 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+176,T+176 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+177,T+177 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+178,T+178 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+179,T+179 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+180,T+180 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+181,T+181 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+182,T+182 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+183,T+183 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+184,T+184 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+185,T+185 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+186,T+186 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+187,T+187 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+188,T+188 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+189,T+189 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+190,T+190 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+191,T+191 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+192,T+192 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+193,T+193 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+194,T+194 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+195,T+195 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+196,T+196 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+197,T+197 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+198,T+198 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+199,T+199 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+200,T+200 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+201,T+201 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+202,T+202 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+203,T+203 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+204,T+204 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+205,T+205 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+206,T+206 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+207,T+207 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+208,T+208 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+209,T+209 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+210,T+210 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+211,T+211 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+212,T+212 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+213,T+213 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+214,T+214 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+215,T+215 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+216,T+216 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+217,T+217 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+218,T+218 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+219,T+219 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+220,T+220 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+221,T+221 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+222,T+222 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+223,T+223 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+224,T+224 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+225,T+225 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+226,T+226 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+227,T+227 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+228,T+228 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+229,T+229 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+230,T+230 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+231,T+231 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+232,T+232 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+233,T+233 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+234,T+234 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+235,T+235 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+236,T+236 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+237,T+237 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+238,T+238 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+239,T+239 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
+240,T+240 min,Casing cut at 510 m,0.35,0.35,0.0,0.0,0.0,0.0,0.0,0.0,Secured
